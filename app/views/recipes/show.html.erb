@@ -1,0 +1,22 @@
+<div id=app>
+<h1><%= @recipe.name %></h1>
+{{ message }}
+<img src=<%= @recipe.image %>>
+<h4>Servings: </h4><%= @recipe.serving_size %>
+<h4>Cook Time: </h4><%= @recipe.prep_time %>
+</ul>
+<h4>Directions:</h4>
+<%= raw @directions %>
+</div>
+<h4>Ingredients:</h4>
+<%= raw @ingredients %>
+</div>
+
+<h4>Ingredient tags:</h4>
+<ul>
+<% @recipe.ingredients.each do |ingredient| %>
+  <li><%= ingredient.name %></li>
+<% end %>
+
+
+

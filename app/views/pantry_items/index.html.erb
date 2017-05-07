@@ -1,0 +1,23 @@
+<h1>MyPantry</h1>
+
+<div id="app">
+  {{ message }}
+  <datalist id="ingredients">
+  <% @ingredients.each do |ingredient| %>
+    <option><%= ingredient.name %></option>
+  <% end %>
+<!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
+  </datalist>
+
+  <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input></p>
+
+  <p>Suggestions: </p>
+
+  <p>In Pantry: </p>
+  <ul>
+  <% @pantry[1..20].each do |item| %>
+    <li><%= Ingredient.find_by(id: item.ingredient_id).name.capitalize %></li>
+  <% end %>
+  <ul>
+</div>
+

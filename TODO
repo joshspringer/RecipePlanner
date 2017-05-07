@@ -1,0 +1,21 @@
+TODO
+
+- login (devise)
+- build out pantry builder
+- %w arrays- how to account for spaces 
+
+- matching algorithm
+  - .singularize (?)
+  - stop once found 3 recipes w/ 100% ingredients?
+  - shorten list of recipes somehow
+  - run in batch on permanent pantry items?
+
+  - make user select main ingredient (as in recipe index), have pre-created list of recipes that match
+  - make user select vegetarian or not
+
+
+
+
+
+<hr>
+correct Faker- Faker::Educator.university only returns university type, not university name

@@ -1,0 +1,36 @@
+UPDATE recipes
+--UPDATE ingredients
+SET name = replace(name, 'Ã±','ñ')
+
+
+SELECT * FROM recipes
+WHERE name LIKE ('%Ã%')
+
+CrÃ¨me brÃ»lÃ©e == Crème brûlée
+
+pÃ¢tÃ© == Pâté
+
+SET name = replace(name, 'Ã´','ô')
+SET name = replace(name, 'Ã¢', 'â')
+SET name = replace(name, 'Ã¹','ù')
+SET name = replace(name, 'Ã©','é')
+SET name = replace(name, 'Ã¨','è')
+SET name = replace(name, 'Ã»','û')
+
+SET name = replace(name, 'Ãª','ê')
+SET name = replace(name, 'Ã®','î')
+
+SET name = replace(name, 'Ã¯','ï')
+SET name = replace(name, 'Ã¶','ö')
+SET name = replace(name, 'Ã§','ç')
+SET name = replace(name, 'Ã ','à')
+SET name = replace(name, 'Ã³','ó')
+
+SET name = replace(name, 'Ã ','à')
+SET name = replace(name, 'Ãª','ê')
+
+
+SET name = replace(name, 'Ã¥','å')
+SET name = replace(name, 'Ã¤','ä')
+SET name = replace(name, 'Ã±','ñ')
+

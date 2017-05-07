@@ -1,0 +1,7 @@
+<% @recipes.each do |recipe| %>
+<p><b><%= Recipe.find_by(id: recipe[0]).name %></b></p>
+<p>Percentage of ingredients in pantry: <%= recipe[1] %></p>
+<p>Total # of ingredients: <%= recipe[2] %></p>
+<hr>
+<% end %>
+

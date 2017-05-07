@@ -1,0 +1,34 @@
+<h1>All the Recipes</h1>
+<a href="/recipes?images=true">Show only recipes with Images</a>
+
+<%= form_tag "/recipes", method: :get do %>
+<p>Main Ingredient: <input type="text" name="main"> <button type="submit">Search</button>
+<% end %>
+
+<h3>Main Ingredient: </h3>
+<% if params[:images] == 'true' %>
+<a href='/recipes?main=poultry&images=true'>Poultry</a>
+<a href='/recipes?main=beef&images=true'>Beef</a>
+<a href='/recipes?main=pork&images=true'>Pork</a>
+<a href='/recipes?main=fish&images=true'>Fish</a>
+<a href='/recipes?main=lamb&images=true'>Lamb</a>
+<a href='/recipes?main=vegetarian&images=true'>Vegetarian</a>
+<% else %>
+<a href='/recipes?main=poultry'>Poultry</a>
+<a href='/recipes?main=beef'>Beef</a>
+<a href='/recipes?main=pork'>Pork</a>
+<a href='/recipes?main=fish'>Fish</a>
+<a href='/recipes?main=lamb'>Lamb</a>
+<a href='/recipes?main=vegetarian'>Vegetarian</a>
+<% end %>
+
+
+<div id=app>
+
+{{ message }}
+<% @recipes[1..12].each do |recipe| %>
+  <p><a href="recipes/<%= recipe.id %>"><%= recipe.name %></a></p>
+  <p><a href="recipes/<%= recipe.id %>"><img src=<%= recipe.image %>></a></p>
+  <p><a href=''>Favorite</a>  |  <a href="">Mute</a></p>
+<% end %>
+</div>
