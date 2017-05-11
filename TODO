@@ -1,8 +1,10 @@
 TODO
 
-- login (devise)
 - build out pantry builder
-- %w arrays- how to account for spaces 
+
+
+
+
 
 - matching algorithm
   - .singularize (?)
@@ -12,6 +14,13 @@ TODO
 
   - make user select main ingredient (as in recipe index), have pre-created list of recipes that match
   - make user select vegetarian or not
+
+
+Known Bugs
+- images only link removes main ingredient param
+- sign in/up pages aren't centered
+
+
 
 
 

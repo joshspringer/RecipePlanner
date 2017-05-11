@@ -9,15 +9,15 @@
 <!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
   </datalist>
 
-  <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input></p>
+  <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input><button v-on:click="addPantryItem()">Add</button>{{newPantryItem}}</p>
 
   <p>Suggestions: </p>
-
+  <button v-on:click="getIngredients()">get</button>
   <p>In Pantry: </p>
+  <p>{{ingredients}}</p>
   <ul>
-  <% @pantry[1..20].each do |item| %>
-    <li><%= Ingredient.find_by(id: item.ingredient_id).name.capitalize %></li>
-  <% end %>
+    <li v-for="ingredient in ingredients">{{ingredient}}</li>
+
   <ul>
 </div>
 

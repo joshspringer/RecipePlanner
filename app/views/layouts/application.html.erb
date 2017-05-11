@@ -46,7 +46,7 @@
   <!-- Logo / Mobile Menu -->
   <div class="three columns">
     <div id="logo">
-      <h1><a href="/index.html"><img src="images/logo.png" alt="Chow" /></a></h1>
+      <h1><a href="/index.html"><img src="/images/logo.png" alt="Chow" /></a></h1>
     </div>
   </div>
 
@@ -59,20 +59,15 @@
     <ul>
       <li><a href="/index.html" id="current">Home</a></li>
 
-      <li><a href="/#">Demos</a>
-        <ul>
-          <li><a href="/index.html">Grid Homepage</a></li>
-          <li><a href="/index-2.html">List Homepage</a></li>
-          <li><a href="/index-3.html">Boxed Version</a></li>
-        </ul>
-      </li>
-
       <li><a href="/#">Recipes</a>
         <ul>
           <li><a href="/browse-recipes.html">Browse Recipes</a></li>
           <li><a href="/recipe-page-1.html">Recipe Page #1</a></li>
           <li><a href="/recipe-page-2.html">Recipe Page #2</a></li>
         </ul>
+      </li>
+
+      <li><a href="/mypantry">MyPantry</a>
       </li>
 
       <li><a href="/#">Pages</a>
@@ -82,15 +77,14 @@
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </li>
+      <% if current_user %>
+      <li><a data-method="delete" href="/users/sign_out">Sign Out</a></li>  
+      <% else %>
+      <li><a href="/users/sign_in">Sign In</a></li>
+      <li><a href="/users/sign_up">Sign Up</a></li>
+      <% end %>
 
-      <li><a href="/#">Shop</a>
-        <ul>
-          <li><a href="/shop.html">Shop</a></li>
-          <li><a href="/product-page.html">Product Page</a></li>
-        </ul>
-      </li>
-
-      <li><a href="/submit-recipe.html">Submit Recipe</a></li>
+      <!-- <li><a href="/submit-recipe.html">Submit Recipe</a></li> -->
     </ul>
   </nav>
 
