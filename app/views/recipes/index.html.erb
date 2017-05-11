@@ -345,6 +345,11 @@
 
           <div class="recipe-meta"><i class="fa fa-clock-o"></i> <%= recipe.prep_time %></div>
 
+          <div class="fav_mute">
+          <!-- if already a favorite use fa fa-heart -->
+          <a class="favorite" data-method="patch" href="/favorite/<%= recipe.id %>"><i class="fa fa-heart-o"></i></a>
+          <a class="mute" data-method="patch" href="/mute/<%= recipe.id %>"><i class="fa fa-minus-circle"></i></a></div>
+
           <div class="clearfix"></div>
         </div>
       </div>
@@ -385,7 +390,7 @@
 
 
 
-<div id=app>
+<div id=recipes>
 
 {{ message }}
 

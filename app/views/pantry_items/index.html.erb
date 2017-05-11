@@ -1,7 +1,6 @@
 <h1>MyPantry</h1>
 
-<div id="app">
-  {{ message }}
+<div id="pantry">
   <datalist id="ingredients">
   <% @ingredients.each do |ingredient| %>
     <option><%= ingredient.name %></option>
@@ -14,9 +13,8 @@
   <p>Suggestions: </p>
   <button v-on:click="getIngredients()">get</button>
   <p>In Pantry: </p>
-  <p>{{ingredients}}</p>
   <ul>
-    <li v-for="ingredient in ingredients">{{ingredient}}</li>
+    <li v-for="ingredient in ingredients">{{ingredient.ingredient_name}}</li>
 
   <ul>
 </div>

@@ -12,12 +12,14 @@ Rails.application.routes.draw do
 
   get 'login' => 'users#login'
 
+  patch 'favorite/:id' => 'favorites#update'
+  patch 'mute/:id' => 'mutes#update'
+
   namespace :api do
     namespace :v1 do
       get '/mypantry/:id' => 'pantry_items#index'
     end
   end
-
 end
 
 =begin

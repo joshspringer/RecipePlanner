@@ -6,6 +6,10 @@ class PantryItemsController < ApplicationController
   end
 
   def create
-
+    PantryItem.create(
+      user_id: current_user,
+      ingredient_id: ingredient.id,
+      pantry_type: 1
+    )
   end
 end
