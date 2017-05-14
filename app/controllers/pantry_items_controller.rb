@@ -1,15 +1,12 @@
 class PantryItemsController < ApplicationController
   def index
+    # @ ingredients where not already in user's pantry
     @ingredients = Ingredient.all
-    @pantry = PantryItem.where(user_id: 1)
+    @pantry = PantryItem.where(user_id: current_user)
     render 'pantry_items/index.html.erb'
   end
 
   def create
-    PantryItem.create(
-      user_id: current_user,
-      ingredient_id: ingredient.id,
-      pantry_type: 1
-    )
+    p 'create action (not namespaced)'
   end
 end

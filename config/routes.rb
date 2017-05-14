@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/mypantry/:id' => 'pantry_items#index'
+      get '/pantry_items/:id' => 'pantry_items#show'
+      post '/pantry_items' => 'pantry_items#create'
     end
   end
 end

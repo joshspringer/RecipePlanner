@@ -7,11 +7,31 @@
   <% end %>
 <!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
   </datalist>
+<div class="advanced-search-container">
+  <div class="container">
+    <div class="sixteen columns">
+      <div id="advanced-search">
+        <div class="select included-ingredients">
+          <nav class="search-by-keyword">
+            <label>Add Ingredient:</label>
+            <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
+            <% @ingredients.each do |ingredient| %>
+              <option value="ingredient.name"><%= ingredient.name %></option>
+            <% end %>
+              <!-- <option value="sugar">sugar</option> -->
+            </select>
+            <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button>
+            </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input><button v-on:click="addPantryItem()">Add</button>{{newPantryItem}}</p>
+  <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input><button v-on:click="addPantryItem()">Add</button></p>
 
   <p>Suggestions: </p>
-  <button v-on:click="getIngredients()">get</button>
+
   <p>In Pantry: </p>
   <ul>
     <li v-for="ingredient in ingredients">{{ingredient.ingredient_name}}</li>

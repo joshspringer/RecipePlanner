@@ -16,15 +16,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     methods: {
       addPantryItem: function() {
+        // need to connect ingredient name to ingredient id
+        var parameters = {
+          ingredient_name: this.newPantryItem,
+          pantry_type: 1
+        };
         if (this.newPantryItem !== "") {
-          // console.log(this.newPantryItem);
-          this.ingredients.push( {
-            name: this.newPantryItem,
-          });
+          console.log(this.newPantryItem);
+          $.post("/api/v1/pantry_items", parameters, function(response) {
+            this.ingredients.push(response);
+            // this.newPantryItem = "";
+          }.bind(this));
+          // this.ingredients.push( {
+          //   ingredient_name: this.newPantryItem,
+          //   pantry_type: 1
+          // });
         } else {
           console.log('new pantry item form is blank');
         }
         this.newPantryItem = "";
+        // console.log(this.ingredients);
       },
       getIngredients: function() {
         console.log('get is working');

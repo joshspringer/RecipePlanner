@@ -41,7 +41,7 @@ class RecipesController < ApplicationController
 
   def mealplanner
     @recipes = []
-    user = User.last
+    user = current_user
     user_pantry = user.pantry_items.map { |item| item.ingredient.id }
     recipes = Ingredient.find_by(name: 'turkey').recipes
     # recipes = Recipe.all
