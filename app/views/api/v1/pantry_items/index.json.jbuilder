@@ -11,5 +11,11 @@
 # end
 
 @categories.each do |category|
-  json.set! category.name, Ingredient.where(ingredient_category_id: category.id)
+  json.set! category.name, @pantry.each do |item|
+    if Ingredient.find_by(id: item.ingredient_id).ingredient_category_id == category.id
+      json.ingredient_id item.ingredient_id
+      json.ingredient_name item.ingredient.name
+      json.pantry_type item.pantry_type
+    end
+  end
 end
