@@ -1,0 +1,5 @@
+<% @list.each do |id| %>
+<%= form_tag "/ingredients", method: :patch do %>
+<p><%= Ingredient.find_by(id: id).name %> <input type="text" name=""></input></p><button type="submit">Submit</button>
+<% end %>
+<% end %>

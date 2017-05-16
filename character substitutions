@@ -16,21 +16,22 @@ SET name = replace(name, 'Ã¹','ù')
 SET name = replace(name, 'Ã©','é')
 SET name = replace(name, 'Ã¨','è')
 SET name = replace(name, 'Ã»','û')
-
 SET name = replace(name, 'Ãª','ê')
 SET name = replace(name, 'Ã®','î')
-
 SET name = replace(name, 'Ã¯','ï')
 SET name = replace(name, 'Ã¶','ö')
 SET name = replace(name, 'Ã§','ç')
 SET name = replace(name, 'Ã ','à')
 SET name = replace(name, 'Ã³','ó')
-
 SET name = replace(name, 'Ã ','à')
 SET name = replace(name, 'Ãª','ê')
-
-
 SET name = replace(name, 'Ã¥','å')
 SET name = replace(name, 'Ã¤','ä')
 SET name = replace(name, 'Ã±','ñ')
+
+
+
+SET ingredient_text = replace(ingredient_text, 'Â½','½')
+SET ingredient_text = replace(ingredient_text, 'Â¾','¾')
+SET ingredient_text = replace(ingredient_text, 'Â¼','¼')
 

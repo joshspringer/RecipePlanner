@@ -3,14 +3,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var app = new Vue({
     el: '#pantry',
     data: {
-      message: 'Hello Vue!',
-      ingredients: [],
+      pantry_items: [],
       newPantryItem: '',
     },
     mounted: function() {
       console.log('mounted');
       $.get("/api/v1/mypantry/1", function(response) {
-        this.ingredients = response;
+        this.pantry_items = response;
       }.bind(this));
 
     },
@@ -24,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (this.newPantryItem !== "") {
           console.log(this.newPantryItem);
           $.post("/api/v1/pantry_items", parameters, function(response) {
-            this.ingredients.push(response);
+            this.pantry_items.push(response);
             // this.newPantryItem = "";
           }.bind(this));
-          // this.ingredients.push( {
+          // this.pantry_items.push( {
           //   ingredient_name: this.newPantryItem,
           //   pantry_type: 1
           // });
@@ -35,11 +34,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
           console.log('new pantry item form is blank');
         }
         this.newPantryItem = "";
-        // console.log(this.ingredients);
+        // console.log(this.pantry_items);
       },
-      getIngredients: function() {
-        console.log('get is working');
-      }
     }
 
   });

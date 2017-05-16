@@ -2,6 +2,7 @@ class Api::V1::PantryItemsController < ApplicationController
   def index
     # @ingredients = Ingredient.all
     @pantry = PantryItem.where(user_id: params[:id])
+    @categories = IngredientCategory.all
     render 'index.json.jbuilder'
   end
 

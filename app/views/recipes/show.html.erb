@@ -56,15 +56,17 @@
     <!-- Text -->
     <p itemprop="description">Recipe Description</p>
 
-
     <!-- Ingredients -->
     <h3>Ingredients</h3>
     <ul class="ingredients">
+      <% counter=1 %>
+      <% @recipe.recipe_ingredients.each do |ingredient| %>
       <li>
-        <input id="check-1" type="checkbox" name="check" value="check-1">
-        <label itemprop="ingredients" for="check-1">2 pounds cubed beef stew meat</label>
+        <input id="check-<%= counter %>" type="checkbox" name="check" value="check-<%= counter %>">
+        <label itemprop="ingredients" for="check-<%= counter %>"><%= ingredient.ingredient_text %></label>
       </li>
-      <%= raw @ingredients %>                 
+      <% counter += 1 %>
+      <% end %>                 
     </ul>
 
 
@@ -79,16 +81,6 @@
     <%= raw @directions %>
 
 
-    <!-- Share Post -->
-    <ul class="share-post">
-      <li><a href="#" class="facebook-share">Facebook</a></li>
-      <li><a href="#" class="twitter-share">Twitter</a></li>
-      <li><a href="#" class="google-plus-share">Google Plus</a></li>
-      <li><a href="#" class="pinterest-share">Pinterest</a></li>
-
-      <!-- <li><a href="#add-review" class="rate-recipe">Add Review</a></li> -->
-    </ul>
-    <div class="clearfix"></div>
 
     
     <!-- Meta -->

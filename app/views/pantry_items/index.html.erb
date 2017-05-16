@@ -2,7 +2,7 @@
 
 <div id="pantry">
   <datalist id="ingredients">
-  <% @ingredients.each do |ingredient| %>
+  <% @not_in_pantry.each do |ingredient| %>
     <option><%= ingredient.name %></option>
   <% end %>
 <!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
@@ -15,7 +15,7 @@
           <nav class="search-by-keyword">
             <label>Add Ingredient:</label>
             <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
-            <% @ingredients.each do |ingredient| %>
+            <% @not_in_pantry.each do |ingredient| %>
               <option value="ingredient.name"><%= ingredient.name %></option>
             <% end %>
               <!-- <option value="sugar">sugar</option> -->
@@ -30,12 +30,11 @@
 
   <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input><button v-on:click="addPantryItem()">Add</button></p>
 
-  <p>Suggestions: </p>
+  <p>Suggestions:</p>
 
   <p>In Pantry: </p>
   <ul>
-    <li v-for="ingredient in ingredients">{{ingredient.ingredient_name}}</li>
-
+    <li v-for="pantry_item in pantry_items">{{pantry_item.ingredient_name}}</li>
   <ul>
 </div>
 

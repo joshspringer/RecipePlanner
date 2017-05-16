@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   root to: 'recipes#index'
   get '/recipes' => 'recipes#index'
   get '/recipes/:id' => 'recipes#show'
-
   get '/mypantry' => 'pantry_items#index'
-
   get '/mealplanner' => 'recipes#mealplanner'
+  get '/ingredients' => 'ingredients#label'
+  patch '/ingredients' => 'ingredients#update'
 
   get 'login' => 'users#login'
 
