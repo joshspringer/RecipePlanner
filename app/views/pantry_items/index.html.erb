@@ -7,34 +7,78 @@
   <% end %>
 <!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
   </datalist>
-<div class="advanced-search-container">
-  <div class="container">
-    <div class="sixteen columns">
-      <div id="advanced-search">
-        <div class="select included-ingredients">
-          <nav class="search-by-keyword">
-            <label>Add Ingredient:</label>
-            <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
-            <% @not_in_pantry.each do |ingredient| %>
-              <option value="ingredient.name"><%= ingredient.name %></option>
-            <% end %>
-              <!-- <option value="sugar">sugar</option> -->
-            </select>
-            <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button>
-            </nav>
+  <div class="advanced-search-container">
+    <div class="container">
+      <div class="sixteen columns">
+        <div id="advanced-search">
+          <div class="select included-ingredients">
+            <nav class="search-by-keyword">
+              <label>Add Ingredient:</label>
+              <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
+              <% @not_in_pantry.each do |ingredient| %>
+                <option value="ingredient.name"><%= ingredient.name %></option>
+              <% end %>
+                <!-- <option value="sugar">sugar</option> -->
+              </select>
+              <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button>
+              </nav>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
   <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input><button v-on:click="addPantryItem()">Add</button></p>
 
-  <p>Suggestions:</p>
+  <div class="container example-grid">
 
-  <p>In Pantry: </p>
+
+    <p>Suggestions:</p>
+
+    <p>In Pantry: </p>
+
+    <div id="herbs" class="four columns">
+    <h3>Herbs and Spices</h3>
+      <ul>
+        <% @herbs.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="fruit" class="four columns">
+    <h3>Fresh Fruit</h3>
+      <ul>
+        <% @fruit.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="veg" class="four columns">
+    <h3>Fresh Vegetables</h3>
+      <ul>
+        <% @veg.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="meat" class="four columns">
+    <h3>Meat/Poultry/Seafood</h3>
+      <ul>
+        <% @meat.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+<!--   <div v-for="pantry_item in pantry_items">
+   <p>{{pantry_item}}</p>
+  </div>
   <ul>
-    <li v-for="pantry_item in pantry_items">{{pantry_item.ingredient_name}}</li>
-  <ul>
+    <li v-for="pantry_item in pantry_items">{{pantry_item}}</li>
+  </ul> -->
 </div>
 
