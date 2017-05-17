@@ -6,31 +6,22 @@ class RecipesController < ApplicationController
     beef = ['beef', 'beef mince', 'corned beef', 'braising steak', 'rump', 'beef rump', 'fillet of beef', 'topside']
     lamb = ['lamb', 'lamb mince', 'lamb shoulder', 'lamb chops', 'leg of lamb', 'lamb shanks', 'lamb neck', 'lamb chop', 'lamb fillet', 'rack of lamb']
 
-# long if statement no longer needed, refactor
-    if params['images'] == 'true' && params[:main] == 'vegetarian'
-      @recipes = Tag.find_by(id: 1).recipes.where.not(image: 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png')
-    elsif params['images'] == 'true' && params[:main] != ''
-      @recipes = []
-      binding.local_variable_get(params[:main]).each do |ingredient|
-        Ingredient.find_by(name: ingredient).recipes.where.not(image: 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png').each do |recipe|
-          @recipes << recipe
-        end
-      end
-      # @recipes = Ingredient.find_by(name: params[:main]).recipes.where.not(image: nil)
-    elsif params['images'] == 'true'
-      @recipes = Recipe.where.not(image: 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png')
-    elsif params[:main] == 'vegetarian'
+    if params[:main] == 'vegetarian'
       @recipes = Tag.find_by(id: 1).recipes
-    elsif params[:main]
+    elsif params[:main] && params[:main] != ''
       @recipes = []
       binding.local_variable_get(params[:main]).each do |ingredient|
-        Ingredient.find_by(name: ingredient).recipes.each do |recipe|
-          @recipes << recipe
-        end
+        @recipes += Ingredient.find_by(name: ingredient).recipes
       end
     else
       @recipes = Recipe.all
     end
+
+    if params[:images] == 'true'
+      p 'images=true'
+      @recipes.delete_if { |recipe| recipe.image == 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png' }
+    end
+    render 'index.html.erb'
   end
 
   def favorites
