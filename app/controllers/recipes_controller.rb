@@ -6,9 +6,10 @@ class RecipesController < ApplicationController
     beef = ['beef', 'beef mince', 'corned beef', 'braising steak', 'rump', 'beef rump', 'fillet of beef', 'topside']
     lamb = ['lamb', 'lamb mince', 'lamb shoulder', 'lamb chops', 'leg of lamb', 'lamb shanks', 'lamb neck', 'lamb chop', 'lamb fillet', 'rack of lamb']
 
+# long if statement no longer needed, refactor
     if params['images'] == 'true' && params[:main] == 'vegetarian'
       @recipes = Tag.find_by(id: 1).recipes.where.not(image: 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png')
-    elsif params['images'] == 'true' && params[:main]
+    elsif params['images'] == 'true' && params[:main] != ''
       @recipes = []
       binding.local_variable_get(params[:main]).each do |ingredient|
         Ingredient.find_by(name: ingredient).recipes.where.not(image: 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png').each do |recipe|

@@ -80,64 +80,6 @@
             <select data-placeholder="Excluded Ingredients" class="chosen-select" multiple>
               <option value="sugar">sugar</option>
               <option value="wheat-flour">wheat flour</option>
-              <option value="baking-powder">baking powder</option>
-              <option value="eggs">eggs</option><option value="salt">salt</option>
-              <option value="brown-sugar">brown sugar</option>
-              <option value="chicken-breast">chicken breast</option>
-              <option value="garlic">garlic</option>
-              <option value="milk">milk</option>
-              <option value="oil">oil</option>
-              <option value="sesame-oil">sesame oil</option>
-              <option value="soy-sauce">soy sauce</option>
-              <option value="butter">butter</option>
-              <option value="carrots">carrots</option>
-              <option value="coconut-flakes">coconut flakes</option>
-              <option value="honey">honey</option>
-              <option value="mung-bean-sprouts">mung bean sprouts</option>
-              <option value="noodles">noodles</option>
-              <option value="onion">onion</option>
-              <option value="potato-starch">potato starch</option>
-              <option value="red-bell-pepper">red bell pepper</option>
-              <option value="walnuts">walnuts</option>
-              <option value="water">water</option>
-              <option value="almonds">almonds</option>
-              <option value="baking-soda">baking soda</option>
-              <option value="beef-brisket">beef brisket</option>
-              <option value="beef-sirloin">beef sirloin</option>
-              <option value="bell-pepper">bell pepper</option>
-              <option value="broth">broth</option>
-              <option value="carrot">carrot</option>
-              <option value="cherries">cherries</option>
-              <option value="chocolate">chocolate</option>
-              <option value="cinnamon">cinnamon</option>
-              <option value="cinnamon-stick">cinnamon stick</option>
-              <option value="cocoa-powder">cocoa powder</option>
-              <option value="coconut">coconut</option>
-              <option value="corn-tortillas">corn tortillas</option>
-              <option value="dark-chocolate">dark chocolate</option>
-              <option value="dried-black-mushrooms">dried black mushrooms</option>
-              <option value="dried-soba">dried soba</option>
-              <option value="egg">egg</option>
-              <option value="five-spice-powder">five spice powder</option>
-              <option value="flour">flour</option>
-              <option value="ginger">ginger</option>
-              <option value="guilin-chili-sauce">guilin chili sauce</option>
-              <option value="leek">leek</option>
-              <option value="lettuce">lettuce</option>
-              <option value="olive-oil">olive oil</option>
-              <option value="oyster-sauce">oyster sauce</option>
-              <option value="pear-juice">pear juice</option>
-              <option value="pepper">pepper</option>
-              <option value="pineapple">pineapple</option>
-              <option value="red-onion">red onion</option>
-              <option value="redcurrant">redcurrant</option>
-              <option value="ribs-of-celery">ribs of celery</option>
-              <option value="sichuan-pepper">Sichuan pepper</option>
-              <option value="spring-onions">spring onions</option>
-              <option value="strawberries">strawberries</option>
-              <option value="taiwanese-golden-mushrooms">Taiwanese golden mushrooms</option>
-              <option value="yeast">yeast</option>
-              <option value="yellow-bell-pepper">yellow bell pepper</option>
             </select>
           </div>
 
@@ -215,7 +157,7 @@
 
 <!-- Container -->
 <div class="container">
-  <% if params[:images] == true %>
+  <% if params[:images] == "true" %>
     <a href="/recipes?images=false&main=<%= params[:main] %>&page=<%= params[:page] %>">Show all recipes</a>
   <% else %>
     <a href="/recipes?images=true&main=<%= params[:main] %>&page=<%= params[:page] %>">Show only recipes with Images</a>
@@ -244,7 +186,7 @@
     <% @recipes[0..11].each do |recipe| %>
  
       <!-- Recipe #1 -->
-      <div class="four isotope-box columns">
+      <div id="recipe_show" class="four isotope-box columns">
 
         <!-- Thumbnail -->
         <div class="thumbnail-holder">
@@ -267,12 +209,11 @@
           <div class="recipe-meta"><i class="fa fa-clock-o"></i> <%= recipe.prep_time %></div>
 
           <div class="fav_mute">
-          <!-- if already a favorite use fa fa-heart -->
-          <% p  Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(recipe.id) %>
+
           <% if Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(recipe.id) %>
-            <a class="favorite" data-method="delete" href="/favorite/<%= recipe.id %>"><i class="fa fa-heart"></i></a>
+            <a class="favorite" data-method="delete" href="/favorite/<%= recipe.id %>"><i id="fav_button" class="fa fa-heart"></i></a>
           <% else %>
-            <a class="favorite" data-method="patch" href="/favorite/<%= recipe.id %>"><i class="fa fa-heart-o"></i></a>
+            <a class="favorite" data-method="patch" href="/favorite/<%= recipe.id %>"><i id="fav_button" class="fa fa-heart-o"></i></a>
           <% end %>
           <a class="mute" data-method="patch" href="/mute/<%= recipe.id %>"><i class="fa fa-minus-circle"></i></a></div>
 
@@ -288,9 +229,9 @@
       <div class="pagination-container">
         <nav class="pagination">
           <ul>
-            <li><a href="#" class="current-page">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
+            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=1" class="current-page">1</a></li>
+            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=2">2</a></li>
+            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=3">3</a></li>
           </ul>
         </nav>
 

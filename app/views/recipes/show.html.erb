@@ -14,7 +14,7 @@
 
 <!-- Content
 ================================================== -->
-<div class="container" itemscope itemtype="http://schema.org/Recipe">
+<div class="container" id="recipe_show" itemscope itemtype="http://schema.org/Recipe">
 
   <!-- Recipe -->
   <div class="twelve columns">
@@ -23,7 +23,7 @@
     <!-- Header -->
     <section class="recipe-header">
       <div class="title-alignment">
-        <h2><%= @recipe.name %> <a class="favorite" data-method="patch" href="/favorite/<%= @recipe.id %>"><i class="fa fa-heart-o"></i></a>
+        <h2><%= @recipe.name %> <a class="favorite" v-on:click="toggleFavorite()"><i id="fav_button" class="fa fa-heart-o"></i></a>
         <a class="mute" data-method="patch" href="#"><i class="fa fa-minus-circle"></i></a></h2>
 
         <div class="rating five-stars">
