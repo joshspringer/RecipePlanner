@@ -28,23 +28,12 @@
         <div class="select">
           <label>Choose category</label>
           <select data-placeholder="Choose Category" class="chosen-select-no-single">
-            <option value="1">All</option>
-            <option value="2">Breakfast</option>
-            <option value="3">Lunch</option>
-            <option value="4">Beverages</option>
-            <option value="5">Appetizers</option>
-            <option value="6">Soups</option>
-            <option value="7">Salads</option>
-            <option value="8">Beef</option>
-            <option value="9">Poultry</option>
-            <option value="10">Pork</option>
-            <option value="11">Seafood</option>
-            <option value="12">Vegetarian</option>
-            <option value="13">Vegetables</option>
-            <option value="14">Desserts</option>
-            <option value="15">Canning / Freezing</option>
-            <option value="16">Breads</option>
-            <option value="17">Holidays</option>
+            <option value="1">Vegetarian</option>
+            <option value="2">Poultry</option>
+            <option value="3">Beef</option>
+            <option value="4">Pork</option>
+            <option value="5">Fish</option>
+            <option value="6">Lamb</option>
           </select>
         </div>
 
@@ -53,65 +42,6 @@
           <label>Select one or more ingredients that should be included in recipe</label>
           <select data-placeholder="Included Ingredients" class="chosen-select" multiple>
             <option value="sugar">sugar</option>
-            <option value="wheat-flour">wheat flour</option>
-            <option value="baking-powder">baking powder</option>
-            <option value="eggs">eggs</option><option value="salt">salt</option>
-            <option value="brown-sugar">brown sugar</option>
-            <option value="chicken-breast">chicken breast</option>
-            <option value="garlic">garlic</option>
-            <option value="milk">milk</option>
-            <option value="oil">oil</option>
-            <option value="sesame-oil">sesame oil</option>
-            <option value="soy-sauce">soy sauce</option>
-            <option value="butter">butter</option>
-            <option value="carrots">carrots</option>
-            <option value="coconut-flakes">coconut flakes</option>
-            <option value="honey">honey</option>
-            <option value="mung-bean-sprouts">mung bean sprouts</option>
-            <option value="noodles">noodles</option>
-            <option value="onion">onion</option>
-            <option value="potato-starch">potato starch</option>
-            <option value="red-bell-pepper">red bell pepper</option>
-            <option value="walnuts">walnuts</option>
-            <option value="water">water</option>
-            <option value="almonds">almonds</option>
-            <option value="baking-soda">baking soda</option>
-            <option value="beef-brisket">beef brisket</option>
-            <option value="beef-sirloin">beef sirloin</option>
-            <option value="bell-pepper">bell pepper</option>
-            <option value="broth">broth</option>
-            <option value="carrot">carrot</option>
-            <option value="cherries">cherries</option>
-            <option value="chocolate">chocolate</option>
-            <option value="cinnamon">cinnamon</option>
-            <option value="cinnamon-stick">cinnamon stick</option>
-            <option value="cocoa-powder">cocoa powder</option>
-            <option value="coconut">coconut</option>
-            <option value="corn-tortillas">corn tortillas</option>
-            <option value="dark-chocolate">dark chocolate</option>
-            <option value="dried-black-mushrooms">dried black mushrooms</option>
-            <option value="dried-soba">dried soba</option>
-            <option value="egg">egg</option>
-            <option value="five-spice-powder">five spice powder</option>
-            <option value="flour">flour</option>
-            <option value="ginger">ginger</option>
-            <option value="guilin-chili-sauce">guilin chili sauce</option>
-            <option value="leek">leek</option>
-            <option value="lettuce">lettuce</option>
-            <option value="olive-oil">olive oil</option>
-            <option value="oyster-sauce">oyster sauce</option>
-            <option value="pear-juice">pear juice</option>
-            <option value="pepper">pepper</option>
-            <option value="pineapple">pineapple</option>
-            <option value="red-onion">red onion</option>
-            <option value="redcurrant">redcurrant</option>
-            <option value="ribs-of-celery">ribs of celery</option>
-            <option value="sichuan-pepper">Sichuan pepper</option>
-            <option value="spring-onions">spring onions</option>
-            <option value="strawberries">strawberries</option>
-            <option value="taiwanese-golden-mushrooms">Taiwanese golden mushrooms</option>
-            <option value="yeast">yeast</option>
-            <option value="yellow-bell-pepper">yellow bell pepper</option>
           </select>
         </div>
 
@@ -286,27 +216,18 @@
 <!-- Container -->
 <div class="container">
   <% if params[:images] == true %>
-  <a href="/recipes">Show all recipes</a>
+    <a href="/recipes?images=false&main=<%= params[:main] %>&page=<%= params[:page] %>">Show all recipes</a>
   <% else %>
-  <a href="/recipes?images=true">Show only recipes with Images</a>
+    <a href="/recipes?images=true&main=<%= params[:main] %>&page=<%= params[:page] %>">Show only recipes with Images</a>
   <% end %>
 
   <h3>Main Ingredient: </h3>
-  <% if params[:images] == 'true' %>
-    <a href='/recipes?main=poultry&images=true'>Poultry</a>
-    <a href='/recipes?main=beef&images=true'>Beef</a>
-    <a href='/recipes?main=pork&images=true'>Pork</a>
-    <a href='/recipes?main=fish&images=true'>Fish</a>
-    <a href='/recipes?main=lamb&images=true'>Lamb</a>
-    <a href='/recipes?main=vegetarian&images=true'>Vegetarian</a>
-  <% else %>
-    <a href='/recipes?main=poultry'>Poultry</a>
-    <a href='/recipes?main=beef'>Beef</a>
-    <a href='/recipes?main=pork'>Pork</a>
-    <a href='/recipes?main=fish'>Fish</a>
-    <a href='/recipes?main=lamb'>Lamb</a>
-    <a href='/recipes?main=vegetarian'>Vegetarian</a>
-  <% end %>
+  <a href='/recipes?images=<%= params[:images] %>&main=poultry&page=<%= params[:page] %>'>Poultry</a>
+  <a href='/recipes?images=<%= params[:images] %>&main=beef&page=<%= params[:page] %>'>Beef</a>
+  <a href='/recipes?images=<%= params[:images] %>&main=pork&page=<%= params[:page] %>'>Pork</a>
+  <a href='/recipes?images=<%= params[:images] %>&main=fish&page=<%= params[:page] %>'>Fish</a>
+  <a href='/recipes?images=<%= params[:images] %>&main=lamb&page=<%= params[:page] %>'>Lamb</a>
+  <a href='/recipes?images=<%= params[:images] %>&main=vegetarian&page=<%= params[:page] %>'>Vegetarian</a>
 
   <!-- Headline -->
   <div class="sixteen columns">
@@ -375,8 +296,8 @@
 
         <nav class="pagination-next-prev">
           <ul>
-            <li><a href="#" class="prev"></a></li>
-            <li><a href="#" class="next"></a></li>
+            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i - 1 %>" class="prev"></a></li>
+            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i + 1 %>" class="next"></a></li>
           </ul>
         </nav>
       </div>
