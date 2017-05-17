@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   }
   root to: 'recipes#index'
   get '/recipes' => 'recipes#index'
+  get '/recipes/favorites' => 'recipes#favorites'
+  get '/recipes/muted' => 'recipes#muted'
   get '/recipes/:id' => 'recipes#show'
   get '/mypantry' => 'pantry_items#index'
   get '/mealplanner' => 'recipes#mealplanner'
@@ -13,7 +15,9 @@ Rails.application.routes.draw do
   get 'login' => 'users#login'
 
   patch 'favorite/:id' => 'favorites#update'
+  delete 'favorite/:id' => 'favorites#destroy'
   patch 'mute/:id' => 'mutes#update'
+  delete 'mute/:id' => 'mute#destroy'
 
   namespace :api do
     namespace :v1 do

@@ -30,7 +30,16 @@ class RecipesController < ApplicationController
     else
       @recipes = Recipe.all
     end
+  end
 
+  def favorites
+    @recipes = Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id))
+    render 'index.html.erb'
+  end
+
+  def muted
+    @recipes = Recipe.where(id: Mute.where(user_id: current_user).pluck(:recipe_id))
+    render 'index.html.erb'
   end
 
   def show

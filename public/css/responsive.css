@@ -32,6 +32,7 @@
     .container .two.columns                     { width: 130px; }
     .container .three.columns                   { width: 205px; }
     .container .four.columns                    { width: 280px; }
+    .container .four.columns                    { width: 280px; height: 325px; overflow: scroll; }
     .container .five.columns                    { width: 355px; }
     .container .six.columns                     { width: 430px; }
     .container .seven.columns                   { width: 505px; }

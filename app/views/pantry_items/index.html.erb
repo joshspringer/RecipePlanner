@@ -33,12 +33,16 @@
   <div class="container example-grid">
 
 
-    <p>Suggestions:</p>
+    
+    <div id="suggestions" class="sixteen columns">
+    <h2>Suggestions:</h2>
 
-    <p>In Pantry: </p>
+    </div>
+
+    <h2>In Pantry: </h2>
 
     <div id="herbs" class="four columns">
-    <h3>Herbs and Spices</h3>
+    <h3><%= IngredientCategory.find_by(id: 1).name %></h3>
       <ul>
         <% @herbs.each do |item| %>
         <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
@@ -47,7 +51,7 @@
     </div>
 
     <div id="fruit" class="four columns">
-    <h3>Fresh Fruit</h3>
+    <h3><%= IngredientCategory.find_by(id: 3).name %></h3>
       <ul>
         <% @fruit.each do |item| %>
         <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
@@ -56,7 +60,7 @@
     </div>
 
     <div id="veg" class="four columns">
-    <h3>Fresh Vegetables</h3>
+    <h3><%= IngredientCategory.find_by(id: 4).name %></h3>
       <ul>
         <% @veg.each do |item| %>
         <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
@@ -65,9 +69,90 @@
     </div>
 
     <div id="meat" class="four columns">
-    <h3>Meat/Poultry/Seafood</h3>
+    <h3><%= IngredientCategory.find_by(id: 5).name %></h3>
       <ul>
         <% @meat.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+   <div id="canned" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 6).name %></h3>
+      <ul>
+        <% @canned.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+   <div id="sauces" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 7).name %></h3>
+      <ul>
+        <% @sauces.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+   <div id="dairy" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 8).name %></h3>
+      <ul>
+        <% @dairy.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+   <div id="baking" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 9).name %></h3>
+      <ul>
+        <% @baking.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+   <div id="pasta" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 10).name %></h3>
+      <ul>
+        <% @pasta.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+   <div id="bread" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 11).name %></h3>
+      <ul>
+        <% @bread.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="oil" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 12).name %></h3>
+      <ul>
+        <% @oil.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="nuts" class="four columns">
+    <h3><%= IngredientCategory.find_by(id: 14).name %></h3>
+      <ul>
+        <% @nuts.each do |item| %>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="uncat" class="sixteen columns">
+    <h3><%= IngredientCategory.find_by(id: 2).name %></h3>
+      <ul>
+        <% @uncat.each do |item| %>
         <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
         <% end %>
       </ul>

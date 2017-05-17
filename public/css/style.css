@@ -52,7 +52,7 @@
 #logo a img {
 	float: left;
 	width: auto;
-	height: 34px;
+	height: 54px;
 }
 
 .boxed #logo a img {
@@ -114,7 +114,7 @@
 	border-bottom: 3px solid transparent;
 }
 
-#current { border-bottom: 3px solid #808080; color: #505050; }
+.current { border-bottom: 3px solid #808080; color: #505050; }
 
 .menu ul li a:hover,
 .menu ul > li:hover > a {

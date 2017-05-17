@@ -327,7 +327,7 @@
 
         <!-- Thumbnail -->
         <div class="thumbnail-holder">
-          <a href="/recipes/<%= recipe.id %>">
+          <a href="recipes/<%= recipe.id %>">
             <img src=<%= recipe.image %> alt=""/>
             <div class="hover-cover"></div>
             <div class="hover-icon">View Recipe</div>
@@ -336,7 +336,7 @@
 
         <!-- Content -->
         <div class="recipe-box-content">
-          <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
+          <h3><a href="recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
 
           <div class="rating five-stars">
             <div class="star-rating"></div>
@@ -347,12 +347,7 @@
 
           <div class="fav_mute">
           <!-- if already a favorite use fa fa-heart -->
-          <% p  Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(recipe.id) %>
-          <% if Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(recipe.id) %>
-            <a class="favorite" data-method="delete" href="/favorite/<%= recipe.id %>"><i class="fa fa-heart"></i></a>
-          <% else %>
-            <a class="favorite" data-method="patch" href="/favorite/<%= recipe.id %>"><i class="fa fa-heart-o"></i></a>
-          <% end %>
+          <a class="favorite" data-method="patch" href="/favorite/<%= recipe.id %>"><i class="fa fa-heart-o"></i></a>
           <a class="mute" data-method="patch" href="/mute/<%= recipe.id %>"><i class="fa fa-minus-circle"></i></a></div>
 
           <div class="clearfix"></div>

@@ -19,4 +19,12 @@ class MutesController < ApplicationController
     end
   end
 
+  def destroy
+    mute = Mute.where(
+        user_id: current_user.id,
+        recipe_id: params[:id]
+    )
+    mute.first.destroy
+  end
+
 end

@@ -46,39 +46,54 @@
   <!-- Logo / Mobile Menu -->
   <div class="three columns">
     <div id="logo">
-      <h1><a href="/index.html"><img src="/images/logo.png" alt="Chow" /></a></h1>
+      <h1><a href="/"><img src="https://ediblestartups.files.wordpress.com/2014/06/pantry-logo.png" alt="Chow" /></a></h1>
     </div>
   </div>
 
 
 <!-- Navigation
 ================================================== -->
+<script>
+$( document ).ready(
+  function() {
+    if (document.URL.indexOf('mypantry') > -1)
+    {
+      document.getElementById("mypantry").id = "current";
+    }
+    else if (document.URL.indexOf('recipes') > -1)
+    {
+      document.getElementById("recipes").id = "current";
+    }
+    else if (document.URL.indexOf('mealplanner') > -1)
+    {
+      document.getElementById("mealplanner").id = "current";
+    }
+    else
+    {
+      document.getElementById("home").id = "current";
+    }
+  } );
+</script>
+
 <div class="thirteen columns navigation">
 
   <nav id="navigation" class="menu nav-collapse">
     <ul>
-      <li><a href="/index.html" id="current">Home</a></li>
+      <li><a href="/" id="home">Home</a></li>
 
-      <li><a href="/#">Recipes</a>
+      <li><a href="/recipes" id="recipes">Recipes</a>
         <ul>
-          <li><a href="/browse-recipes.html">Browse Recipes</a></li>
-          <li><a href="/recipe-page-1.html">Recipe Page #1</a></li>
-          <li><a href="/recipe-page-2.html">Recipe Page #2</a></li>
+          <li><a href="/recipes">Browse All Recipes</a></li>
+          <li><a href="/recipes/favorites">Favorite Recipes</a></li>
+          <li><a href="/recipes/muted">Muted Recipes</a></li>
         </ul>
       </li>
 
-      <li><a href="/mypantry">MyPantry</a>
+      <li><a href="/mypantry" id="mypantry">MyPantry</a>
       </li>
-      <li><a href="/mealplanner">Meal Planner</a>
+      <li><a href="/mealplanner" id="mealplanner">Meal Planner</a>
       </li>
 
-      <li><a href="/#">Pages</a>
-        <ul>
-          <li><a href="/shortcodes.html">Shortcodes</a></li>
-          <li><a href="/typography.html">Typography</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </li>
       <% if current_user %>
       <li><a data-method="delete" href="/users/sign_out">Sign Out <%= current_user.email %></a></li>  
       <% else %>
@@ -138,9 +153,9 @@
       <div class="clearfix"></div>
 
       <ul class="footer-links">
-        <li><a href="/browse-recipes.html">Browse Recipes</a></li>
-        <li><a href="/recipe-page-1.html">Recipe Page</a></li>
-        <li><a href="/submit-recipe.html">Submit Recipe</a></li>
+        <li><a href="/recipes">Browse All Recipes</a></li>
+        <li><a href="/recipes/favorites">Favorite Recipes</a></li>
+        <li><a href="/recipes/muted">Muted Recipes</a></li>
       </ul>
 
     </div>
@@ -187,23 +202,23 @@
 
 <!-- Java Script
 ================================================== -->
-<script src="scripts/jquery-1.11.0.min.js"></script>
-<script src="scripts/jquery-migrate-1.2.1.min.js"></script>
-<script src="scripts/jquery.superfish.js"></script>
-<script src="scripts/jquery.royalslider.min.js"></script>
-<script src="scripts/responsive-nav.js"></script>
-<script src="scripts/hoverIntent.js"></script>
-<script src="scripts/isotope.pkgd.min.js"></script>
-<script src="scripts/chosen.jquery.min.js"></script>
-<script src="scripts/jquery.tooltips.min.js"></script>
-<script src="scripts/jquery.magnific-popup.min.js"></script>
-<script src="scripts/jquery.pricefilter.js"></script>
-<script src="scripts/custom.js"></script>
+<script src="/scripts/jquery-1.11.0.min.js"></script>
+<script src="/scripts/jquery-migrate-1.2.1.min.js"></script>
+<script src="/scripts/jquery.superfish.js"></script>
+<script src="/scripts/jquery.royalslider.min.js"></script>
+<script src="/scripts/responsive-nav.js"></script>
+<script src="/scripts/hoverIntent.js"></script>
+<script src="/scripts/isotope.pkgd.min.js"></script>
+<script src="/scripts/chosen.jquery.min.js"></script>
+<script src="/scripts/jquery.tooltips.min.js"></script>
+<script src="/scripts/jquery.magnific-popup.min.js"></script>
+<script src="/scripts/jquery.pricefilter.js"></script>
+<script src="/scripts/custom.js"></script>
 
 
 <!-- Style Switcher
 ================================================== -->
-<script src="scripts/switcher.js"></script>
+<script src="/scripts/switcher.js"></script>
 
 <div id="style-switcher">
   <h2>Style Switcher <a href="/#"></a></h2>
