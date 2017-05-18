@@ -24,112 +24,39 @@
     <div class="sixteen columns">
       <div id="advanced-search">
 
-        <!-- Choose Category -->
-        <div class="select">
-          <label>Choose category</label>
-          <select data-placeholder="Choose Category" class="chosen-select-no-single">
-            <option value="1">Vegetarian</option>
-            <option value="2">Poultry</option>
-            <option value="3">Beef</option>
-            <option value="4">Pork</option>
-            <option value="5">Fish</option>
-            <option value="6">Lamb</option>
-          </select>
-        </div>
-
-        <!-- Choose ingredients -->
-        <div class="select included-ingredients">
-          <label>Select one or more ingredients that should be included in recipe</label>
-          <select data-placeholder="Included Ingredients" class="chosen-select" multiple>
-            <option value="sugar">sugar</option>
-          </select>
-        </div>
-
-        <!-- Choose -->
-        <div class="select">
-          <label>Recipe needs to have</label>
-          <select data-placeholder="Choose Category" class="chosen-select">
-            <option value="1">All of selected ingredients </option>
-            <option value="2">Any of selected ingredients</option>
-          </select>
-        </div>
-        
-        <div class="clearfix"></div>
-
         <!-- Search Input -->
         <nav class="search-by-keyword">
-          <form action="#" method="get">
+          <form action="/recipes?page=1&images=<%= params[:images] %>&main=<%= params[:main] %>" method="get">
             <button><span>Search for Recipes</span><i class="fa fa-search"></i></button>
             <input class="search-field" type="text" placeholder="Search by keyword" value=""/>
           </form>
         </nav>
         <div class="clearfix"></div>
 
-
-        <!-- Advanced Search Button -->
-        <a href="#" class="adv-search-btn">Advanced Search <i class="fa fa-caret-down"></i></a>
-
-
-        <!-- Extra Search Options -->
-        <div class="extra-search-options closed">
-
-
-          <!-- Choose Excluded Ingredients -->
-          <div class="select excluded-ingredients">
-            <label>Select one or more ingredients that should be excluded from recipe</label>
-            <select data-placeholder="Excluded Ingredients" class="chosen-select" multiple>
-              <option value="sugar">sugar</option>
-              <option value="wheat-flour">wheat flour</option>
-            </select>
-          </div>
-
-          <!-- Choose Alergens -->
-          <div class="select alergens">
-            <label>Choose alergens</label>
-            <select data-placeholder="Choose Alergens" class="chosen-select" multiple>
-              <option value="2">Peanut</option>
-              <option value="3">Tree nuts</option>
-              <option value="4">Milk</option>
-              <option value="5">Egg</option>
-              <option value="6">Wheat</option>
-              <option value="7">Soy</option>
-              <option value="8">Fish</option>
-              <option value="9">Shellfish</option>
-            </select>
-          </div>
-
-
-          <div class="clearfix"></div>
-
-          <!-- Choose serving -->
-          <div class="select">
-            <label>Choose serving</label>
-            <select data-placeholder="Choose level" class="chosen-select">
-              <option value="1">All</option>
-              <option value="2">for 1 person</option>
-              <option value="3">for 2 people</option>
-              <option value="5">for 4 people</option>
-              <option value="6">for family</option>
-            </select>
-          </div>
-
-          <!-- Choose time needed -->
-          <div class="select">
-            <label>Choose time needed</label>
-            <select data-placeholder="Choose time needed" class="chosen-select">
-              <option value="1">All</option>
-              <option value="2">Half an hour</option>
-              <option value="3">Less than hour</option>
-              <option value="3">More than hour</option>
-            </select>
-          </div>
-
-          <div class="clearfix"></div>
-          <div class="margin-top-10"></div>
-
+        <!-- Choose Category -->
+        <div class="select">
+          <label>Choose category</label>
+          <select data-placeholder="Choose Category" class="chosen-select-no-single">
+            <option value="1">All</option>
+            <option value="2">Poultry</option>
+            <option value="3">Beef</option>
+            <option value="4">Pork</option>
+            <option value="5">Fish</option>
+            <option value="6">Lamb</option>
+            <option value="7">Vegetarian</option>
+          </select>
         </div>
-        <!-- Extra Search Options / End -->
 
+        <!-- Choose -->
+        <div class="select">
+          <label>Images</label>
+          <select data-placeholder="Choose Category" class="chosen-select">
+            <option value="1">Show All Recipes</option>
+            <option value="2">Show Only Recipes With Images</option>
+          </select>
+        </div>
+        
+        <div class="clearfix"></div>
 
       <div class="clearfix"></div>
       </div>
@@ -145,9 +72,9 @@
 <!-- Container -->
 <div class="container">
   <% if params[:images] == "true" %>
-    <a href="/recipes?images=false&main=<%= params[:main] %>&page=<%= params[:page] %>">Show all recipes</a>
+    <a href="/recipes?page=1&main=<%= params[:main] %>">Show all recipes</a>
   <% else %>
-    <a href="/recipes?images=true&main=<%= params[:main] %>&page=<%= params[:page] %>">Show only recipes with Images</a>
+    <a href="/recipes?page=1&images=true&main=<%= params[:main] %>">Show only recipes with Images</a>
   <% end %>
 
   <h3>Main Ingredient: </h3>
@@ -216,15 +143,21 @@
       <div class="pagination-container">
         <nav class="pagination">
           <ul>
-            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=1" class="current-page">1</a></li>
-            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=2">2</a></li>
-            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=3">3</a></li>
+            <% count = 1 %>
+            <% @num_of_pages.times do %>
+            <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= count %>" class="#current-page"><%= count %></a></li>
+            <% count += 1 %>
+            <% end %>
           </ul>
         </nav>
 
         <nav class="pagination-next-prev">
           <ul>
+            <% if params[:page].to_i > 1 %>
             <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i - 1 %>" class="prev"></a></li>
+            <% else %>
+            <li><a class="prev"></a></li>
+            <% end %>
             <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i + 1 %>" class="next"></a></li>
           </ul>
         </nav>

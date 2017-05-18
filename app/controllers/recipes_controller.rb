@@ -1,5 +1,8 @@
 class RecipesController < ApplicationController
+
   def index
+    @page = params[:page]
+
     fish = ['salmon', 'fish', 'trout', 'cod', 'red snapper', 'swordfish', 'fresh tuna', 'white fish']
     poultry = ['chicken', 'chickens', 'chicken breasts', 'chicken breast', 'chicken thighs', 'chicken wings', 'chicken legs', 'chicken thigh', 'turkey', 'turkey breast', 'quail', 'quails', 'pheasant', 'pheasants', 'duck']
     pork = ['pork', 'pork belly', 'pork fillet', 'pork mince', 'pork shoulder', 'pork loin', 'pork sausages', 'pork chops', 'pork chop']
@@ -7,20 +10,31 @@ class RecipesController < ApplicationController
     lamb = ['lamb', 'lamb mince', 'lamb shoulder', 'lamb chops', 'leg of lamb', 'lamb shanks', 'lamb neck', 'lamb chop', 'lamb fillet', 'rack of lamb']
 
     if params[:main] == 'vegetarian'
-      @recipes = Tag.find_by(id: 1).recipes
+      recipes = Tag.find_by(id: 1).recipes.to_a
     elsif params[:main] && params[:main] != ''
-      @recipes = []
+      recipes = []
       binding.local_variable_get(params[:main]).each do |ingredient|
-        @recipes += Ingredient.find_by(name: ingredient).recipes
+        recipes += Ingredient.find_by(name: ingredient).recipes
       end
     else
-      @recipes = Recipe.all
+      recipes = Recipe.all.to_a
     end
 
     if params[:images] == 'true'
-      p 'images=true'
-      @recipes.delete_if { |recipe| recipe.image == 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png' }
+      # must be array for delete_if
+      recipes.delete_if { |recipe| recipe.image == 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png' }
     end
+
+    if (recipes.length / 12.to_f).ceil > 10
+      @num_of_pages = 10
+    else 
+      @num_of_pages = (recipes.length / 12.to_f).ceil
+    end
+
+    start = (params[:page].to_i - 1) * 12
+    # must be array for slice to work
+    @recipes = recipes.slice(start, 12)
+
     render 'index.html.erb'
   end
 
