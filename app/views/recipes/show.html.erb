@@ -18,7 +18,13 @@
     <section class="recipe-header">
       <div class="title-alignment">
         <h2><%= @recipe.name %> 
-        <a class="favorite" v-on:click="toggleFavorite()"><i id="fav_button" class="fa fa-heart-o"></i></a>
+        <a class="favorite" data-method="patch" href="/favorite/<%= @recipe.id %>">
+          <% if Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(@recipe.id) %>
+            <div v-on:click="toggleFavorite(0)"><i id="fav_button0" class="fa fa-heart"></i></div></a>
+          <% else %>
+            <i id="fav_button0" v-on:click="toggleFavorite(0)" class="fa fa-heart-o"></i></a>
+          <% end %>
+
         <a class="mute" data-method="patch" href="#"><i class="fa fa-minus-circle"></i></a></h2>
 
         <div class="rating five-stars">
