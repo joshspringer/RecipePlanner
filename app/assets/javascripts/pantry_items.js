@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
       newPantryItem: '',
     },
     mounted: function() {
-      console.log('mounted');
-      $.get("/api/v1/mypantry/1", function(response) {
-        this.pantry_items = response;
-        // console.log(response);
-        console.log(this.pantry_items);
-      }.bind(this));
+      // console.log('mounted');
+      // $.get("/api/v1/mypantry/1", function(response) {
+      //   this.pantry_items = response;
+      //   // console.log(response);
+      //   console.log(this.pantry_items);
+      // }.bind(this));
     },
     methods: {
       addPantryItem: function() {

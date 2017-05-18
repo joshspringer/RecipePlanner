@@ -1,16 +1,10 @@
-
-
 <!-- Wrapper -->
 <div id="wrapper">
-
-
-
 
 <!-- Recipe Background -->
 <div class="recipeBackground">
   <img src=<%= @recipe.image %> alt="" />
 </div>
-
 
 <!-- Content
 ================================================== -->
@@ -23,7 +17,8 @@
     <!-- Header -->
     <section class="recipe-header">
       <div class="title-alignment">
-        <h2><%= @recipe.name %> <a class="favorite" v-on:click="toggleFavorite()"><i id="fav_button" class="fa fa-heart-o"></i></a>
+        <h2><%= @recipe.name %> 
+        <a class="favorite" v-on:click="toggleFavorite()"><i id="fav_button" class="fa fa-heart-o"></i></a>
         <a class="mute" data-method="patch" href="#"><i class="fa fa-minus-circle"></i></a></h2>
 
         <div class="rating five-stars">

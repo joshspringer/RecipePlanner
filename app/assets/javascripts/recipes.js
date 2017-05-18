@@ -6,12 +6,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     },
     methods: {
-      toggleFavorite: function() {
-        console.log('toggleFavorite');
-        if (document.getElementById("fav_button").className === "fa fa-heart-o") {
-          document.getElementById("fav_button").className = "fa fa-heart";
+      toggleFavorite: function(n) {
+        console.log(n);
+        console.log('toggleFavorite' + n);
+        if (document.getElementById("fav_button" + n).className === "fa fa-heart-o") {
+          document.getElementById("fav_button" + n).className = "fa fa-heart";
         } else {
-          document.getElementById("fav_button").className = "fa fa-heart-o";
+          document.getElementById("fav_button" + n).className = "fa fa-heart-o";
         }
       },
       toggleMute: function() {
