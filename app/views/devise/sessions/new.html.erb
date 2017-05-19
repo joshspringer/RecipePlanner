@@ -1,26 +1,81 @@
-<h2>Log in</h2>
+<!-- Titlebar
+================================================== -->
+<section id="titlebar">
+  <!-- Container -->
+  <div class="container">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="eight columns">
+      <h2>Sign In</h2>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+  <!-- Container / End -->
+</section>
 
-<%= render "devise/shared/links" %>
+<!-- Content
+================================================== -->
+
+<!-- Container -->
+<div class="container">
+  <div class="sixteen columns">
+    <div class="image-with-caption contact">
+      <img class="rsImg" src="http://www.vasterad.com/themes/chow/images/contact.jpg" alt="" />
+    </div>
+  </div>
+</div>
+<!-- Container / End -->
+
+
+<div class="margin-top-10"></div>
+
+
+<!-- Container -->
+<div class="container">
+
+<!-- Contact Form -->
+<div class="twelve columns">
+    <h3 class="headline">Sign In</h3><span class="line margin-bottom-25"></span><div class="clearfix"></div>
+
+    <!-- Contact Form -->
+    <section id="contact">
+
+      <!-- Success Message -->
+      <mark id="message"></mark>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
+
+    <div class="actions">
+      <%= f.submit "Log in" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+
+</div>
+
+
+<div class="four columns">
+
+
+</div>
+<!-- Container / End -->
+
+
+</div>
+<!-- Wrapper / End -->

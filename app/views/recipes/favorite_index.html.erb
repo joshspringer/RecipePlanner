@@ -149,7 +149,7 @@
             <ul>
               <% count = 1 %>
               <% @num_of_pages.times do %>
-              <li><a href="/recipes/favorites?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= count %>" class="#current-page"><%= count %></a></li>
+              <li><a href="/recipes/favorites?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= count %>" <% if params[:page].to_i == count %> class="current-page"> <% end %><%= count %></a></li>
               <% count += 1 %>
               <% end %>
             </ul>
