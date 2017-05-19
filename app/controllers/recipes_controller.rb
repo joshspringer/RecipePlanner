@@ -68,6 +68,8 @@ class RecipesController < ApplicationController
   end
 
   def mealplanner
+
+    ingredient_filter = "WHERE _ri.ingredient_id IN (#{params[:ingredient_id]})" if params[:ingredient_id]
     sql = "SELECT
 
           r.id,
@@ -78,12 +80,12 @@ class RecipesController < ApplicationController
           FROM
             (SELECT _r.id
             FROM recipes _r JOIN recipe_ingredients _ri ON _r.id = _ri.recipe_id
-            WHERE _ri.ingredient_id IN (5)
+            #{ingredient_filter}
             GROUP BY 1
             ) r
           JOIN recipe_ingredients ri ON r.id = ri.recipe_id
           JOIN ingredients i ON ri.ingredient_id = i.id
-          LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = 1) p ON i.id = p.ingredient_id
+          LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = #{current_user.id}) p ON i.id = p.ingredient_id
 
           GROUP BY 1
           ORDER BY 4 DESC"

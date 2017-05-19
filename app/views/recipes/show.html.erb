@@ -63,7 +63,7 @@
       <% counter=1 %>
       <% @recipe.recipe_ingredients.each do |ingredient| %>
       <li>
-        <input id="check-<%= counter %>" type="checkbox" name="check" value="check-<%= counter %>">
+        <input id="check-<%= counter %>" type="checkbox" name="check" value="check-<%= counter %>" <% if PantryItem.where(user_id: 1).where(ingredient_id: ingredient.ingredient_id).length > 0 %>checked<% end %>>
         <label itemprop="ingredients" for="check-<%= counter %>"><%= ingredient.ingredient_text %></label>
       </li>
       <% counter += 1 %>
