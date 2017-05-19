@@ -30,7 +30,7 @@
 
       <a href="recipe-page-1.html" class="rsSlideTitle button">View Recipe</a>
     </div>
-    </div>
+  </div>
 
   </div>
 
@@ -215,21 +215,33 @@
     <div class="clearfix"></div>
 
     <!-- Pagination -->
-    <div class="pagination-container masonry">
-      <nav class="pagination">
-        <ul>
-          <li><a href="#" class="current-page">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-        </ul>
-      </nav>
+    <div class="sixteen columns">
+      <div class="pagination-container">
+        <nav class="pagination">
+          <ul>
+            <% count = 1 %>
+            <% @num_of_pages.times do %>
+            <li><a href="/mealplanner?page=<%= count %>" class="#current-page"><%= count %></a></li>
+            <% count += 1 %>
+            <% end %>
+          </ul>
+        </nav>
 
-      <nav class="pagination-next-prev">
-        <ul>
-          <li><a href="#" class="prev"></a></li>
-          <li><a href="#" class="next"></a></li>
-        </ul>
-      </nav>
+        <nav class="pagination-next-prev">
+          <ul>
+            <% if params[:page].to_i > 1 %>
+            <li><a href="/mealplanner?page=<%= params[:page].to_i - 1 %>" class="prev"></a></li>
+            <% else %>
+            <li><a class="prev"></a></li>
+            <% end %>
+            <% if @num_of_pages.to_i > 1 %>
+              <li><a href="/mealplanner?page=<%= params[:page].to_i + 1 %>" class="next"></a></li>
+            <% else %>
+              <li><a class="next"></a></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
     </div>
 
   </div>
@@ -249,26 +261,6 @@
     </nav>
     <div class="clearfix"></div>
   </div>
-
-
-  <!-- Categories -->
-  <div class="widget">
-    <h4 class="headline">Categories</h4>
-    <span class="line margin-bottom-20"></span>
-    <div class="clearfix"></div>
-
-    <ul class="categories">
-      <li><a href="#">Lunch <span>(2)</span></a></li>
-      <li><a href="#">Breakfast <span>(2)</span></a></li>
-      <li><a href="#">Soups <span>(2)</span></a></li>
-      <li><a href="#">Salads <span>(2)</span></a></li>
-      <li><a href="#">Beef <span>(2)</span></a></li>
-      <li><a href="#">Seafood <span>(2)</span></a></li>
-      <li><a href="#">Vegetarian <span>(2)</span></a></li>
-      <li><a href="#">Vegetables <span>(2)</span></a></li>
-    </ul>
-  </div>
-
 
   <!-- Popular Recipes -->
   <div class="widget">

@@ -32,7 +32,6 @@ class RecipesController < ApplicationController
     end
 
     start = (params[:page].to_i - 1) * 12
-    # must be array for slice to work
     @recipes = recipes.slice(start, 12)
 
     render 'index.html.erb'
@@ -76,13 +75,13 @@ class RecipesController < ApplicationController
           count(ri.id) as recipe_ingredients,
           (count(p.ingredient_id)+0.0)/(count(ri.id)+0.0) as percentage
 
-          FROM 
+          FROM
             (SELECT _r.id
             FROM recipes _r JOIN recipe_ingredients _ri ON _r.id = _ri.recipe_id
             WHERE _ri.ingredient_id IN (5)
             GROUP BY 1
-            ) r 
-          JOIN recipe_ingredients ri ON r.id = ri.recipe_id 
+            ) r
+          JOIN recipe_ingredients ri ON r.id = ri.recipe_id
           JOIN ingredients i ON ri.ingredient_id = i.id
           LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = 1) p ON i.id = p.ingredient_id
 
@@ -90,28 +89,17 @@ class RecipesController < ApplicationController
           ORDER BY 4 DESC"
 
     range = ActiveRecord::Base.connection.execute(sql)
-    cols = [:id, :pantry_ingredients, :recipe_ingredients]
-    @recipes = range.to_a
-    # @recipes = range.select { cols }.collect{ |h| cols.collect { |c| h[c] } }
-    p @recipes
+    recipes = range.to_a
+    start = 0
+    start = (params[:page].to_i - 1) * 6 if params[:page]
+    @recipes = recipes.slice(start, 6)
 
-    # @recipes = []
-    # user = current_user
-    # user_pantry = user.pantry_items.map { |item| item.ingredient.id }
-    # @recipe_hash = {}
-    # recipes = Ingredient.find_by(name: 'white wine vinegar').recipes
-    # # recipes = Recipe.all
-    # recipes.each do |recipe|
-    # #   @recipe_hash[recipe.name] = recipe.ingredients
-    # # end
-    #   count = 0
-    #   recipe.ingredients.each do |ingredient|
-    #     count += 1 if user_pantry.include?(ingredient.id)
-    # end
-    #   percent = count.to_f / recipe.ingredients.length.to_f
-    #   @recipes << [recipe.id, percent, recipe.ingredients.length]
-    # end
-    # @recipes = @recipes.sort_by { |e| e[1] }.reverse
+    if (recipes.length / 6.to_f).ceil > 10
+      @num_of_pages = 10
+    else 
+      @num_of_pages = (recipes.length / 6.to_f).ceil
+    end
+
     render 'mealplanner.html.erb'
   end
 end
