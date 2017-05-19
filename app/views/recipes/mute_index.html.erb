@@ -1,0 +1,179 @@
+<!-- Wrapper -->
+<div id="wrapper">
+
+
+
+  <!-- Titlebar
+  ================================================== -->
+  <section id="titlebar" class="browse-all">
+    <!-- Container -->
+    <div class="container">
+
+      <div class="eight columns">
+        <h2>Browse Recipes</h2>
+      </div>
+
+    </div>
+    <!-- Container / End -->
+  </section>
+
+
+  <!-- Container -->
+  <div class="advanced-search-container">
+    <div class="container">
+      <div class="sixteen columns">
+        <div id="advanced-search">
+
+          <!-- Search Input -->
+          <nav class="search-by-keyword">
+            <form action="/recipes?page=1&images=<%= params[:images] %>&main=<%= params[:main] %>" method="get">
+              <button><span>Search for Recipes</span><i class="fa fa-search"></i></button>
+              <input class="search-field" type="text" placeholder="Search by keyword" value=""/>
+            </form>
+          </nav>
+          <div class="clearfix"></div>
+
+          <!-- Choose Category -->
+          <div class="select">
+            <label>Choose category</label>
+            <select data-placeholder="Choose Category" class="chosen-select-no-single">
+              <option value="1">All</option>
+              <option value="2">Poultry</option>
+              <option value="3">Beef</option>
+              <option value="4">Pork</option>
+              <option value="5">Fish</option>
+              <option value="6">Lamb</option>
+              <option value="7">Vegetarian</option>
+            </select>
+          </div>
+
+          <!-- Choose -->
+          <div class="select">
+            <label>Images</label>
+            <select data-placeholder="Choose Category" class="chosen-select">
+              <option value="1">Show All Recipes</option>
+              <option value="2">Show Only Recipes With Images</option>
+            </select>
+          </div>
+          
+          <div class="clearfix"></div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="margin-top-35"></div>
+
+
+  <!-- Container -->
+  <div class="container">
+    <% if params[:images] == "true" %>
+      <a href="/recipes?page=1&main=<%= params[:main] %>">Show all recipes</a>
+    <% else %>
+      <a href="/recipes?page=1&images=true&main=<%= params[:main] %>">Show only recipes with Images</a>
+    <% end %>
+
+    <h3>Main Ingredient: </h3>
+    <a href='/recipes?images=<%= params[:images] %>&main=poultry&page=<%= params[:page] %>'>Poultry</a>
+    <a href='/recipes?images=<%= params[:images] %>&main=beef&page=<%= params[:page] %>'>Beef</a>
+    <a href='/recipes?images=<%= params[:images] %>&main=pork&page=<%= params[:page] %>'>Pork</a>
+    <a href='/recipes?images=<%= params[:images] %>&main=fish&page=<%= params[:page] %>'>Fish</a>
+    <a href='/recipes?images=<%= params[:images] %>&main=lamb&page=<%= params[:page] %>'>Lamb</a>
+    <a href='/recipes?images=<%= params[:images] %>&main=vegetarian&page=<%= params[:page] %>'>Vegetarian</a>
+
+    <!-- Headline -->
+    <div class="sixteen columns">
+      <h3 class="headline">All Recipes</h3>
+      <span class="line margin-bottom-35"></span>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+
+      <!-- Isotope -->
+      <div id="recipe_show" class="isotope">
+
+      <% counter = 1 %>
+      <% @recipes.each do |recipe| %>
+   
+        <!-- Recipe #1 -->
+        <div class="four isotope-box columns">
+
+          <!-- Thumbnail -->
+          <div class="thumbnail-holder">
+            <a href="/recipes/<%= recipe.id %>">
+              <img src=<%= recipe.image %> alt=""/>
+              <div class="hover-cover"></div>
+              <div class="hover-icon">View Recipe</div>
+            </a>
+          </div>
+
+          <!-- Content -->
+          <div class="recipe-box-content">
+            <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></h3>
+
+            <div class="rating five-stars">
+              <div class="star-rating"></div>
+              <div class="star-bg"></div>
+            </div>
+
+            <div class="recipe-meta"><i class="fa fa-clock-o"></i> <%= recipe.prep_time %></div>
+
+            <div class="fav_mute">
+
+              <a class="favorite" data-method="patch" href="/favorite/<%= recipe.id %>">
+              <% if Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(recipe.id) %>
+                <div v-on:click="toggleFavorite(<%= counter %>)"><i id="fav_button<%= counter %>" class="fa fa-heart"></i></div></a>
+              <% else %>
+                <i id="fav_button<%= counter %>" v-on:click="toggleFavorite(<%= counter %>)" class="fa fa-heart-o"></i></a>
+
+              <% end %>
+
+              <a class="mute" data-method="patch" href="/mute/<%= recipe.id %>"><i class="fa fa-minus-circle"></i></a>
+            </div>
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      <% counter += 1 %>
+      <% end %>
+      </div>
+
+      <!-- Pagination -->
+      <div class="sixteen columns">
+        <div class="pagination-container">
+          <nav class="pagination">
+            <ul>
+              <% count = 1 %>
+              <% @num_of_pages.times do %>
+              <li><a href="/recipes/favorites?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= count %>" class="#current-page"><%= count %></a></li>
+              <% count += 1 %>
+              <% end %>
+            </ul>
+          </nav>
+
+          <nav class="pagination-next-prev">
+            <ul>
+              <% if params[:page].to_i > 1 %>
+                <li><a href="/recipes/muted?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i - 1 %>" class="prev"></a></li>
+              <% else %>
+                <li><a class="prev"></a></li>
+              <% end %>
+              <% if @num_of_pages.to_i > 1 %>
+                <li><a href="/recipes/muted?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i + 1 %>" class="next"></a></li>
+              <% else %>
+                <li><a class="next"></a></li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+  </div>
+
+
+</div>
+  <!-- Wrapper / End -->
