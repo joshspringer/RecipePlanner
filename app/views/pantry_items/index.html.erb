@@ -9,7 +9,7 @@
 <!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
 
   </datalist>
-  <p id="current_user" hidden value="1">1</p>
+  <p id="current_user" class="<%= current_user.id %>" hidden ></p>
   <div class="advanced-search-container">
     <div class="container">
       <div class="sixteen columns">
@@ -18,30 +18,24 @@
             <nav class="search-by-keyword">
 
 
-<v-select multiple v-model="selected" :options="['flour','chicken', 'rice']"></v-select>
+<!-- <v-select multiple v-model="selected" :options="['flour','chicken', 'rice']"></v-select> -->
 
-
+              <form action="/pantry_items" method="post">
               <label>Add Ingredient:</label>
-
-              <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
+              <select data-placeholder="Search for Ingredients" class="chosen-select" name="ingredient[]" multiple>
               <% @not_in_pantry.each do |ingredient| %>
-                <option value="ingredient.name"><%= ingredient.name %></option>
+                <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
               <% end %>
-                <!-- <option value="sugar">sugar</option> -->
               </select>
               <button type="submit">Add</button>
               <!-- <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button> -->
-              </nav>
+              </form>
+            </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-<form action="/pantry_items" method="post">
-<input class="search-field" list="ingredients" type="text" name="ingredient" value="" autocomplete="off"/>
-<button type="submit">Add</button>
-</form>
 
 <!--   <p>Add Ingredient: <input v-model="newPantryItem"  list="ingredients"></input><button v-on:click="addPantryItem()">Add</button></p> -->
 
@@ -50,8 +44,13 @@
 
     
     <div id="suggestions" class="sixteen columns">
-    <h2>Suggestions:</h2>
-
+      <h2>Suggestions:</h2>
+      <form action="/pantry_items" method="post" name="ingredient[]">
+        <% @suggestions.each do |ingredient| %>
+          <input type="checkbox" name="ingredient[]" value="<%= ingredient['id'] %>"><%= ingredient['name'] %>
+        <% end %>
+        <input type="submit" value="Add">
+      </form>
     </div>
 
     <h2>In Pantry: </h2>
@@ -60,10 +59,6 @@
     <h3><%= IngredientCategory.find_by(id: 1).name %></h3>
       <ul>
         <li v-for="ingredient in herbs">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('herbs', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>
-
-<!--         <% @herbs.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a v-on:click="deletePantryItem(1, <%= item.ingredient_id %>)"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -71,10 +66,6 @@
     <h3><%= IngredientCategory.find_by(id: 3).name %></h3>
       <ul>
         <li v-for="ingredient in fruit">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('fruit', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>
-
-<!--         <% @fruit.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -82,10 +73,6 @@
     <h3><%= IngredientCategory.find_by(id: 4).name %></h3>
       <ul>
         <li v-for="ingredient in veg">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('veg', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>        
-
-<!--         <% @veg.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -93,10 +80,6 @@
     <h3><%= IngredientCategory.find_by(id: 5).name %></h3>
       <ul>
         <li v-for="ingredient in meat">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('meat', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>
-
-<!--         <% @meat.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -104,10 +87,6 @@
     <h3><%= IngredientCategory.find_by(id: 6).name %></h3>
       <ul>
         <li v-for="ingredient in canned">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('canned', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>       
-
-<!--         <% @canned.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -115,10 +94,6 @@
     <h3><%= IngredientCategory.find_by(id: 7).name %></h3>
       <ul>
         <li v-for="ingredient in sauces">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('sauces', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>
-
-<!--         <% @sauces.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -126,10 +101,6 @@
     <h3><%= IngredientCategory.find_by(id: 8).name %></h3>
       <ul>
         <li v-for="ingredient in dairy">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('dairy', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>
-
-<!--         <% @dairy.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -137,10 +108,6 @@
     <h3><%= IngredientCategory.find_by(id: 9).name %></h3>
       <ul>
         <li v-for="ingredient in baking">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('baking', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>    
-
-<!--         <% @baking.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -148,10 +115,6 @@
     <h3><%= IngredientCategory.find_by(id: 10).name %></h3>
       <ul>
         <li v-for="ingredient in pasta">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('pasta', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>
-
-<!--         <% @pasta.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -159,10 +122,6 @@
     <h3><%= IngredientCategory.find_by(id: 11).name %></h3>
       <ul>
         <li v-for="ingredient in bread">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('bread', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>        
-
-<!--         <% @bread.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -170,10 +129,6 @@
     <h3><%= IngredientCategory.find_by(id: 12).name %></h3>
       <ul>
         <li v-for="ingredient in oil">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('oil', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>        
-
-<!--         <% @oil.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -181,10 +136,6 @@
     <h3><%= IngredientCategory.find_by(id: 14).name %></h3>
       <ul>
         <li v-for="ingredient in nuts">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('nuts', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>        
-
-<!--         <% @nuts.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
@@ -192,19 +143,9 @@
     <h3><%= IngredientCategory.find_by(id: 2).name %></h3>
       <ul>
         <li v-for="ingredient in uncat">{{ingredient["ingredient_name"]}} <a v-on:click="deletePantryItem('uncat', ingredient['ingredient_id'], ingredient)"><i class="fa fa-close"></i></a></li>        
-
-<!--         <% @uncat.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
-        <% end %> -->
       </ul>
     </div>
 
   </div>
-<!--   <div v-for="pantry_item in pantry_items">
-   <p>{{pantry_item}}</p>
-  </div>
-  <ul>
-    <li v-for="pantry_item in pantry_items">{{pantry_item}}</li>
-  </ul> -->
 </div>
 

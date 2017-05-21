@@ -85,40 +85,43 @@ class RecipesController < ApplicationController
   end
 
   def mealplanner
+    if !current_user
+      render '/not_signed_in.html.erb'
+    else
+      ingredient_filter = "WHERE _ri.ingredient_id IN (#{params[:ingredient_id]})" if params[:ingredient_id]
+      sql = "SELECT
 
-    ingredient_filter = "WHERE _ri.ingredient_id IN (#{params[:ingredient_id]})" if params[:ingredient_id]
-    sql = "SELECT
+            r.id,
+            count(p.ingredient_id) as pantry_ingredients,
+            count(ri.id) as recipe_ingredients,
+            (count(p.ingredient_id)+0.0)/(count(ri.id)+0.0) as percentage
 
-          r.id,
-          count(p.ingredient_id) as pantry_ingredients,
-          count(ri.id) as recipe_ingredients,
-          (count(p.ingredient_id)+0.0)/(count(ri.id)+0.0) as percentage
+            FROM
+              (SELECT _r.id
+              FROM recipes _r JOIN recipe_ingredients _ri ON _r.id = _ri.recipe_id
+              #{ingredient_filter}
+              GROUP BY 1
+              ) r
+            JOIN recipe_ingredients ri ON r.id = ri.recipe_id
+            JOIN ingredients i ON ri.ingredient_id = i.id
+            LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = #{current_user.id}) p ON i.id = p.ingredient_id
 
-          FROM
-            (SELECT _r.id
-            FROM recipes _r JOIN recipe_ingredients _ri ON _r.id = _ri.recipe_id
-            #{ingredient_filter}
             GROUP BY 1
-            ) r
-          JOIN recipe_ingredients ri ON r.id = ri.recipe_id
-          JOIN ingredients i ON ri.ingredient_id = i.id
-          LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = #{current_user.id}) p ON i.id = p.ingredient_id
+            ORDER BY 4 DESC"
 
-          GROUP BY 1
-          ORDER BY 4 DESC"
+      range = ActiveRecord::Base.connection.execute(sql)
+      recipes = range.to_a
+      start = 0
+      start = (params[:page].to_i - 1) * 6 if params[:page]
+      @recipes = recipes.slice(start, 6)
 
-    range = ActiveRecord::Base.connection.execute(sql)
-    recipes = range.to_a
-    start = 0
-    start = (params[:page].to_i - 1) * 6 if params[:page]
-    @recipes = recipes.slice(start, 6)
+      if (recipes.length / 6.to_f).ceil > 10
+        @num_of_pages = 10
+      else 
+        @num_of_pages = (recipes.length / 6.to_f).ceil
+      end
 
-    if (recipes.length / 6.to_f).ceil > 10
-      @num_of_pages = 10
-    else 
-      @num_of_pages = (recipes.length / 6.to_f).ceil
+      render 'mealplanner.html.erb'
     end
-
-    render 'mealplanner.html.erb'
   end
 end

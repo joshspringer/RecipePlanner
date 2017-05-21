@@ -19,11 +19,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
       nuts: {}, //13
       uncat: {}, //14
       newPantryItem: '',
+      UserId: 0,
     },
     mounted: function() {
       console.log('mounted');
+      this.UserId = document.getElementById("current_user").className;
+
       // change /1 to current_user
-      $.get("/api/v1/mypantry/1", function(response) {
+      $.get("/api/v1/mypantry/" + this.UserId, function(response) {
         this.herbs = response[1];
         this.fruit = response[3];
         this.veg = response[4];
@@ -40,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       }.bind(this));
 
+      
 
       // $.get("/api/v1/mypantry/1", function(response) {
       //   this.pantry_items = response;
