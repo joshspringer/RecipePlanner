@@ -25,6 +25,7 @@ class Api::V1::PantryItemsController < ApplicationController
   def destroy
     p 'delete a pantry item'
     p "ingredient_id: #{params[:ingredient_id]}"
+    p current_user
 
     array = PantryItem.where(ingredient_id: params[:ingredient_id]).where(user_id: current_user)
     array.each do |item|

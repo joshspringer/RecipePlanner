@@ -26,7 +26,8 @@ Rails.application.routes.draw do
       get '/mypantry/:id' => 'pantry_items#index'
       get '/pantry_items/:id' => 'pantry_items#show'
       post '/pantry_items' => 'pantry_items#create'
-      get '/pantry_items' => 'pantry_items#destroy'
+      delete '/pantry_items' => 'pantry_items#destroy'
+      get '/remove_pantry_items' => 'pantry_items#destroy'
     end
   end
 end
