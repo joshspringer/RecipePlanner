@@ -15,7 +15,6 @@
       <div class="sixteen columns">
         <div id="advanced-search">
           <div class="select included-ingredients">
-
             <nav class="search-by-keyword">
 
 
@@ -23,13 +22,15 @@
 
 
               <label>Add Ingredient:</label>
+
               <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
               <% @not_in_pantry.each do |ingredient| %>
                 <option value="ingredient.name"><%= ingredient.name %></option>
               <% end %>
                 <!-- <option value="sugar">sugar</option> -->
               </select>
-              <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button>
+              <button type="submit">Add</button>
+              <!-- <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button> -->
               </nav>
           </div>
         </div>
@@ -37,7 +38,12 @@
     </div>
   </div>
 
-  <p>Add Ingredient: <input v-model="newPantryItem" list="ingredients"></input><button v-on:click="addPantryItem()">Add</button></p>
+<form action="/pantry_items" method="post">
+<input class="search-field" list="ingredients" type="text" name="ingredient" value="" autocomplete="off"/>
+<button type="submit">Add</button>
+</form>
+
+<!--   <p>Add Ingredient: <input v-model="newPantryItem"  list="ingredients"></input><button v-on:click="addPantryItem()">Add</button></p> -->
 
   <div class="container example-grid">
 

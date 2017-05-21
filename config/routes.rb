@@ -10,12 +10,11 @@ Rails.application.routes.draw do
   get '/recipes/muted' => 'recipes#muted'
   get '/recipes/:id' => 'recipes#show'
   get '/mypantry' => 'pantry_items#index'
+  post '/pantry_items' => 'pantry_items#create'
   get '/mealplanner' => 'recipes#mealplanner'
   get '/ingredients' => 'ingredients#label'
   patch '/ingredients' => 'ingredients#update'
-
   get 'login' => 'users#login'
-
   patch 'favorite/:id' => 'favorites#update'
   delete 'favorite/:id' => 'favorites#destroy'
   patch 'mute/:id' => 'mutes#update'

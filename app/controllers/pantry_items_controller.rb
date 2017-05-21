@@ -1,4 +1,5 @@
 class PantryItemsController < ApplicationController
+    skip_before_filter :verify_authenticity_token
   def index
     # @ ingredients where not already in user's pantry
     @not_in_pantry = Ingredient.where("id NOT IN (?)", PantryItem.where(user_id: current_user.id).pluck(:ingredient_id))
@@ -15,13 +16,18 @@ class PantryItemsController < ApplicationController
     @oil = PantryItem.where(user_id: current_user.id).where(ingredient_id: Ingredient.where(ingredient_category_id: 12).ids)
     @nuts = PantryItem.where(user_id: current_user.id).where(ingredient_id: Ingredient.where(ingredient_category_id: 14).ids)
     @uncat = PantryItem.where(user_id: current_user.id).where(ingredient_id: Ingredient.where(ingredient_category_id: 2).ids)
-
+    p session["user_id"]
     render 'pantry_items/index.html.erb'
   end
 
   def create
-    # are you looking for the api controller?
-    p 'create action (not namespaced)'
+      newitem = PantryItem.new(
+        ingredient_id: Ingredient.find_by(name: params[:ingredient]).id,
+        user_id: current_user.id,
+        pantry_type: 1
+      )
+      newitem.save
+      p newitem.errors.full_messages
+      redirect_to '/mypantry'
   end
-
 end

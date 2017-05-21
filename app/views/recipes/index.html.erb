@@ -27,7 +27,7 @@
           <!-- Search Input -->
           <nav class="search-by-keyword">
             <%= form_tag "/recipes", :id => 'recipe_search', method: :get do %>
-              <input class="search-field" type="text" placeholder="Search by keyword" value="<%= params[:q] %>" name="q"/>
+              <input class="search-field" type="text" placeholder="Search by keyword" value="<%= params[:q] %>" name="q" autocomplete="off"/>
               <button type="submit"><span>Search for Recipes</span><i class="fa fa-search"></i></button>
             <% end %>
           </nav>
