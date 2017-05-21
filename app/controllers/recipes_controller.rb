@@ -55,15 +55,26 @@ class RecipesController < ApplicationController
   end
 
   def favorites
-    @recipes = Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id))
-
-    if (@recipes.length / 12.to_f).ceil > 10
-      @num_of_pages = 10
+    if !current_user
+      render '/not_signed_in.html.erb'
     else
-      @num_of_pages = (@recipes.length / 12.to_f).ceil
-    end
+      @page = params[:page]
+      @recipes = Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id))
 
-    render 'favorite_index.html.erb'
+      if (@recipes.length / 12.to_f).ceil > 10
+        @num_of_pages = 10
+      else
+        @num_of_pages = (@recipes.length / 12.to_f).ceil
+      end
+
+      if params[:page]
+        @page_num = params[:page].to_i
+      else
+        @page_num = 1
+      end
+
+      render 'favorite_index.html.erb'
+    end
   end
 
   def muted
