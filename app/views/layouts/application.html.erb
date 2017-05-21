@@ -51,61 +51,61 @@
   </div>
 
 
-<!-- Navigation
-================================================== -->
-<script>
-$( document ).ready(
-  function() {
-    if (document.URL.indexOf('mypantry') > -1)
-    {
-      document.getElementById("mypantry").id = "current";
-    }
-    else if (document.URL.indexOf('recipes') > -1)
-    {
-      document.getElementById("recipes").id = "current";
-    }
-    else if (document.URL.indexOf('mealplanner') > -1)
-    {
-      document.getElementById("mealplanner").id = "current";
-    }
-    else
-    {
-      document.getElementById("home").id = "current";
-    }
-  } );
-</script>
+  <!-- Navigation
+  ================================================== -->
+  <script>
+  $( document ).ready(
+    function() {
+      if (document.URL.indexOf('mypantry') > -1)
+      {
+        document.getElementById("mypantry").id = "current";
+      }
+      else if (document.URL.indexOf('recipes') > -1)
+      {
+        document.getElementById("recipes").id = "current";
+      }
+      else if (document.URL.indexOf('mealplanner') > -1)
+      {
+        document.getElementById("mealplanner").id = "current";
+      }
+      else
+      {
+        document.getElementById("home").id = "current";
+      }
+    } );
+  </script>
 
-<div class="thirteen columns navigation">
+  <div class="thirteen columns navigation">
 
-  <nav id="navigation" class="menu nav-collapse">
-    <ul>
-      <li><a href="/" id="home">Home</a></li>
+    <nav id="navigation" class="menu nav-collapse">
+      <ul>
+        <li><a href="/" id="home">Home</a></li>
 
-      <li><a href="/recipes?page=1" id="recipes">Recipes</a>
-        <ul>
-          <li><a href="/recipes?page=1">Browse All Recipes</a></li>
-          <li><a href="/recipes/favorites?page=1">Favorite Recipes</a></li>
-          <li><a href="/recipes/muted?page=1">Muted Recipes</a></li>
-        </ul>
-      </li>
+        <li><a href="/recipes?page=1" id="recipes">Recipes</a>
+          <ul>
+            <li><a href="/recipes?page=1">Browse All Recipes</a></li>
+            <li><a href="/recipes/favorites?page=1">Favorite Recipes</a></li>
+            <!-- <li><a href="/recipes/muted?page=1">Muted Recipes</a></li> -->
+          </ul>
+        </li>
 
-      <li><a href="/mypantry" id="mypantry">MyPantry</a>
-      </li>
-      <li><a href="/mealplanner?page=1" id="mealplanner">Meal Planner</a>
-      </li>
+        <li><a href="/mypantry" id="mypantry">MyPantry</a>
+        </li>
+        <li><a href="/mealplanner?page=1" id="mealplanner">Meal Planner</a>
+        </li>
 
-      <% if current_user %>
-      <li><a data-method="delete" href="/users/sign_out">Sign Out <%= current_user.email %></a></li>  
-      <% else %>
-      <li><a href="/users/sign_in">Sign In</a></li>
-      <li><a href="/users/sign_up">Sign Up</a></li>
-      <% end %>
+        <% if current_user %>
+        <li><a data-method="delete" href="/users/sign_out">Sign Out (<%= current_user.email %>)</a></li>  
+        <% else %>
+        <li><a href="/users/sign_in">Sign In</a></li>
+        <li><a href="/users/sign_up">Sign Up</a></li>
+        <% end %>
 
-      <!-- <li><a href="/submit-recipe.html">Submit Recipe</a></li> -->
-    </ul>
-  </nav>
+        <!-- <li><a href="/submit-recipe.html">Submit Recipe</a></li> -->
+      </ul>
+    </nav>
 
-</div>
+  </div>
 
 </div>
 <!-- Container / End -->
@@ -117,66 +117,6 @@ $( document ).ready(
 ================================================== -->
 <div id="footer">
 
-  <!-- Container -->
-  <div class="container">
-
-    <div class="five columns">
-      <!-- Headline -->
-      <h3 class="headline footer">About</h3>
-      <span class="line"></span>
-      <div class="clearfix"></div>
-      <p>Cras at ultrices erat, sed vulputate eros. Nunc at augue gravida est fermentum vulputate. Pellentesque et ipsum in dui malesuada tempus.</p>
-    </div>
-
-    <div class="three columns">
-
-      <!-- Headline -->
-      <h3 class="headline footer">Archives</h3>
-      <span class="line"></span>
-      <div class="clearfix"></div>
-
-      <ul class="footer-links">
-        <li><a href="/#">June 2014</a></li>
-        <li><a href="/#">July 2014</a></li>
-        <li><a href="/#">August 2014</a></li>
-        <li><a href="/#">September 2014</a></li>
-        <li><a href="/#">November 2014</a></li>
-      </ul>
-
-    </div>
-
-    <div class="three columns">
-
-      <!-- Headline -->
-      <h3 class="headline footer">Recipes</h3>
-      <span class="line"></span>
-      <div class="clearfix"></div>
-
-      <ul class="footer-links">
-        <li><a href="/recipes">Browse All Recipes</a></li>
-        <li><a href="/recipes/favorites">Favorite Recipes</a></li>
-        <li><a href="/recipes/muted">Muted Recipes</a></li>
-      </ul>
-
-    </div>
-
-    <div class="five columns">
-
-      <!-- Headline -->
-      <h3 class="headline footer">Newsletter</h3>
-      <span class="line"></span>
-      <div class="clearfix"></div>
-      <p>Sign up to receive email updates on new product announcements, gift ideas, sales and more.</p>
-
-      <form action="#" method="get">
-        <input class="newsletter" type="text" placeholder="mail@example.com" value=""/>
-        <button class="newsletter-btn" type="submit">Subscribe</button>
-
-      </form>
-    </div>
-
-  </div>
-  <!-- Container / End -->
 
 </div>
 <!-- Footer / End -->
@@ -187,7 +127,7 @@ $( document ).ready(
   <!-- Container -->
   <div class="container">
 
-    <div class="eight columns">© Copyright 2014 by <a href="/#">Chow</a>. All Rights Reserved.</div>
+    <div class="eight columns">Made by <a>Josh Springer</a></div>
 
   </div>
   <!-- Container / End -->

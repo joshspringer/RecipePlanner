@@ -26,33 +26,33 @@
 
           <!-- Search Input -->
           <nav class="search-by-keyword">
-            <form action="/recipes?page=1&images=<%= params[:images] %>&main=<%= params[:main] %>" method="get">
-              <button><span>Search for Recipes</span><i class="fa fa-search"></i></button>
-              <input class="search-field" type="text" placeholder="Search by keyword" value=""/>
-            </form>
+            <%= form_tag "/recipes", :id => 'recipe_search', method: :get do %>
+              <input class="search-field" type="text" placeholder="Search by keyword" value="<%= params[:q] %>" name="q"/>
+              <button type="submit"><span>Search for Recipes</span><i class="fa fa-search"></i></button>
+            <% end %>
           </nav>
           <div class="clearfix"></div>
 
           <!-- Choose Category -->
           <div class="select">
             <label>Choose category</label>
-            <select data-placeholder="Choose Category" class="chosen-select-no-single">
-              <option value="1">All</option>
-              <option value="2">Poultry</option>
-              <option value="3">Beef</option>
-              <option value="4">Pork</option>
-              <option value="5">Fish</option>
-              <option value="6">Lamb</option>
-              <option value="7">Vegetarian</option>
+            <select data-placeholder="Choose Category" class="chosen-select-no-single" name="main" form="recipe_search">
+              <option value="">All</option>
+              <option <%if params[:main] == 'poultry' %>selected="selected"<% end %> value="poultry">Poultry</option>
+              <option <%if params[:main] == 'beef' %>selected="selected"<% end %> value="beef">Beef</option>
+              <option <%if params[:main] == 'pork' %>selected="selected"<% end %> value="pork">Pork</option>
+              <option <%if params[:main] == 'fish' %>selected="selected"<% end %> value="fish">Fish</option>
+              <option <%if params[:main] == 'lamb' %>selected="selected"<% end %> value="lamb">Lamb</option>
+              <option <%if params[:main] == 'vegetarian' %>selected="selected"<% end %> value="vegetarian">Vegetarian</option>
             </select>
           </div>
 
           <!-- Choose -->
           <div class="select">
             <label>Images</label>
-            <select data-placeholder="Choose Category" class="chosen-select">
-              <option value="1">Show All Recipes</option>
-              <option value="2">Show Only Recipes With Images</option>
+            <select data-placeholder="Choose Category" class="chosen-select" name="images" form="recipe_search">
+              <option value="false">Show All Recipes</option>
+              <option <%if params[:images] == 'true' %>selected="selected"<% end %>  value="true">Show Only Recipes With Images</option>
             </select>
           </div>
           
@@ -70,19 +70,6 @@
 
   <!-- Container -->
   <div class="container">
-    <% if params[:images] == "true" %>
-      <a href="/recipes?page=1&main=<%= params[:main] %>">Show all recipes</a>
-    <% else %>
-      <a href="/recipes?page=1&images=true&main=<%= params[:main] %>">Show only recipes with Images</a>
-    <% end %>
-
-    <h3>Main Ingredient: </h3>
-    <a href='/recipes?images=<%= params[:images] %>&main=poultry&page=<%= params[:page] %>'>Poultry</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=beef&page=<%= params[:page] %>'>Beef</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=pork&page=<%= params[:page] %>'>Pork</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=fish&page=<%= params[:page] %>'>Fish</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=lamb&page=<%= params[:page] %>'>Lamb</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=vegetarian&page=<%= params[:page] %>'>Vegetarian</a>
 
     <!-- Headline -->
     <div class="sixteen columns">
@@ -95,7 +82,9 @@
 
       <!-- Isotope -->
       <div id="recipe_show" class="isotope">
-
+      <% if !@recipes %>
+      No matching recipes
+      <% else %>
       <% counter = 1 %>
       <% @recipes.each do |recipe| %>
    
@@ -132,7 +121,7 @@
 
               <% end %>
 
-              <a class="mute" data-method="patch" href="/mute/<%= recipe.id %>"><i class="fa fa-minus-circle"></i></a>
+              <!-- <a class="mute" data-method="patch" href="/mute/<%= recipe.id %>"><i class="fa fa-minus-circle"></i></a> -->
             </div>
 
             <div class="clearfix"></div>
@@ -141,6 +130,7 @@
       <% counter += 1 %>
       <% end %>
       </div>
+      <% end %>
 
       <!-- Pagination -->
       <div class="sixteen columns">
@@ -149,7 +139,7 @@
             <ul>
               <% count = 1 %>
               <% @num_of_pages.times do %>
-              <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= count %>" <% if params[:page].to_i == count %> class="current-page"<% end %>><%= count %></a></li>
+              <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= count %>" <% if @page_num == count %> class="current-page"<% end %>><%= count %></a></li>
               <% count += 1 %>
               <% end %>
             </ul>
@@ -157,13 +147,11 @@
 
           <nav class="pagination-next-prev">
             <ul>
-              <% if params[:page].to_i > 1 %>
-              <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i - 1 %>" class="prev"></a></li>
-              <% else %>
-              <li><a class="prev"></a></li>
+              <% if @page_num > 1 %>
+              <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= @page_num - 1 %>" class="prev"></a></li>
               <% end %>
               <% if @num_of_pages.to_i > 1 %>
-                <li><a href="/recipes/favorites?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= params[:page].to_i + 1 %>" class="next"></a></li>
+                <li><a href="/recipes?images=<%= params[:images] %>&main=<%= params[:main] %>&page=<%= @page_num + 1 %>" class="next"></a></li>
               <% else %>
                 <li><a class="next"></a></li>
               <% end %>

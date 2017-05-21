@@ -12,7 +12,13 @@
       <div class="sixteen columns">
         <div id="advanced-search">
           <div class="select included-ingredients">
+
             <nav class="search-by-keyword">
+
+
+<v-select multiple v-model="selected" :options="['flour','chicken', 'rice']"></v-select>
+
+
               <label>Add Ingredient:</label>
               <select data-placeholder="Search for Ingredients" class="chosen-select" multiple>
               <% @not_in_pantry.each do |ingredient| %>
@@ -45,7 +51,7 @@
     <h3><%= IngredientCategory.find_by(id: 1).name %></h3>
       <ul>
         <% @herbs.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a v-on:click="deletePantryItem(1, <%= item.ingredient_id %>)"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -54,7 +60,7 @@
     <h3><%= IngredientCategory.find_by(id: 3).name %></h3>
       <ul>
         <% @fruit.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -63,7 +69,7 @@
     <h3><%= IngredientCategory.find_by(id: 4).name %></h3>
       <ul>
         <% @veg.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -72,7 +78,7 @@
     <h3><%= IngredientCategory.find_by(id: 5).name %></h3>
       <ul>
         <% @meat.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -81,7 +87,7 @@
     <h3><%= IngredientCategory.find_by(id: 6).name %></h3>
       <ul>
         <% @canned.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -90,7 +96,7 @@
     <h3><%= IngredientCategory.find_by(id: 7).name %></h3>
       <ul>
         <% @sauces.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -99,7 +105,7 @@
     <h3><%= IngredientCategory.find_by(id: 8).name %></h3>
       <ul>
         <% @dairy.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -108,7 +114,7 @@
     <h3><%= IngredientCategory.find_by(id: 9).name %></h3>
       <ul>
         <% @baking.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -117,7 +123,7 @@
     <h3><%= IngredientCategory.find_by(id: 10).name %></h3>
       <ul>
         <% @pasta.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -126,7 +132,7 @@
     <h3><%= IngredientCategory.find_by(id: 11).name %></h3>
       <ul>
         <% @bread.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -135,7 +141,7 @@
     <h3><%= IngredientCategory.find_by(id: 12).name %></h3>
       <ul>
         <% @oil.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -144,7 +150,7 @@
     <h3><%= IngredientCategory.find_by(id: 14).name %></h3>
       <ul>
         <% @nuts.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>
@@ -153,7 +159,7 @@
     <h3><%= IngredientCategory.find_by(id: 2).name %></h3>
       <ul>
         <% @uncat.each do |item| %>
-        <li><%= Ingredient.find_by(id: item.ingredient_id).name %></li>
+        <li><%= Ingredient.find_by(id: item.ingredient_id).name %> <a href="###"><i class="fa fa-close"></i></a></li>
         <% end %>
       </ul>
     </div>

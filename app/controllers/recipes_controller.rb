@@ -1,5 +1,9 @@
 class RecipesController < ApplicationController
 
+  def home
+    render '/index.html.erb'
+  end
+
   def index
     @page = params[:page]
 
@@ -25,13 +29,26 @@ class RecipesController < ApplicationController
       recipes.delete_if { |recipe| recipe.image == 'http://apunteslj.com/wp-content/themes/gonzo/images/no-image-half-landscape.png' }
     end
 
+    if params[:q]
+      recipes = recipes.select {|a| a.name.include? params[:q]}
+    end
+
+    p recipes
+    p '*' * 10
+    p recipes.length
     if (recipes.length / 12.to_f).ceil > 10
       @num_of_pages = 10
-    else 
+    else
       @num_of_pages = (recipes.length / 12.to_f).ceil
     end
 
-    start = (params[:page].to_i - 1) * 12
+    if params[:page]
+      @page_num = params[:page].to_i
+    else
+      @page_num = 1
+    end
+
+    start = (@page_num - 1) * 12
     @recipes = recipes.slice(start, 12)
 
     render 'index.html.erb'
@@ -54,7 +71,7 @@ class RecipesController < ApplicationController
 
     if (@recipes.length / 12.to_f).ceil > 10
       @num_of_pages = 10
-    else 
+    else
       @num_of_pages = (@recipes.length / 12.to_f).ceil
     end
 

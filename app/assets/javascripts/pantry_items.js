@@ -1,9 +1,11 @@
 
 document.addEventListener("DOMContentLoaded", function(event) { 
+  Vue.component('v-select', VueSelect.VueSelect);
   var app = new Vue({
     el: '#pantry',
     data: {
       pantry_items: {},
+      herbs: {},
       newPantryItem: '',
     },
     mounted: function() {
@@ -37,6 +39,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
         this.newPantryItem = "";
         // console.log(this.pantry_items);
       },
+      deletePantryItem: function(category,ingredient) {
+        console.log('delete an item:');
+        console.log('ingredient id: ' + ingredient);
+        // update to use current_user
+        var parameters = {
+          ingredient_id: ingredient,
+          category_id: category,
+        };
+        $.get("/api/v1/pantry_items", parameters);
+      }
     }
 
   });

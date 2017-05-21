@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
-  root to: 'recipes#index'
+  root to: 'recipes#home'
+  get '/home' => 'recipes#home'
   get '/recipes' => 'recipes#index'
   get '/recipes/favorites' => 'recipes#favorites'
   get '/recipes/muted' => 'recipes#muted'
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
       get '/mypantry/:id' => 'pantry_items#index'
       get '/pantry_items/:id' => 'pantry_items#show'
       post '/pantry_items' => 'pantry_items#create'
+      get '/pantry_items' => 'pantry_items#destroy'
     end
   end
 end
