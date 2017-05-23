@@ -21,7 +21,7 @@ class PantryItemsController < ApplicationController
         ORDER BY 3 DESC"
 
     range = ActiveRecord::Base.connection.execute(sql)
-    @suggestions = range.to_a[0..12]
+    @suggestions = range.to_a[0..16]
 
     render 'pantry_items/index.html.erb'
     end

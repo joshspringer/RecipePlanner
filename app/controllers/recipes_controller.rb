@@ -91,8 +91,8 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find_by(id: params[:id])
-    @directions = Nokogiri::HTML(open(@recipe.filepath)).css('div.recipe-method-wrapper ol.recipe-method__list')
-    @ingredients = Nokogiri::HTML(open(@recipe.filepath)).css('div.recipe-ingredients ul.recipe-ingredients__list')
+    # @directions = Nokogiri::HTML(open(@recipe.filepath)).css('div.recipe-method-wrapper ol.recipe-method__list')
+    @directions = @recipe.directions
   end
 
   def mealplanner

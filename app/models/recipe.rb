@@ -6,4 +6,5 @@ class Recipe < ApplicationRecord
   has_many :favorites
   has_many :mutes
 
+  serialize :directions, Array
 end

@@ -1,3 +1,32 @@
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    font-size: 12pt;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 320px;
+    opacity: 0.9;
+    background-color: gray;
+    color: #fff;
+    font-size: 10pt;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1000;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
+
 <h1>MyPantry</h1>
 
 <div id="pantry">
@@ -44,7 +73,7 @@
 
     
     <div id="suggestions" class="sixteen columns">
-      <h2>Suggestions:</h2>
+      <h2><div class="tooltip"><i class="fa fa-info-circle"></i><span class="tooltiptext">Suggestions are based on frequency of ingredients in your favorite recipes and in other users' pantries</span> </div> Suggestions: </h2>
       <form action="/pantry_items" method="post" name="ingredient[]">
         <% @suggestions.each do |ingredient| %>
           <input type="checkbox" name="ingredient[]" value="<%= ingredient['id'] %>"><%= ingredient['name'] %>
