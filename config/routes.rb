@@ -5,20 +5,31 @@ Rails.application.routes.draw do
   }
   root to: 'recipes#home'
   get '/home' => 'recipes#home'
+  get '/newsletter' => 'newsletters#new'
+
   get '/recipes' => 'recipes#index'
   get '/recipes/favorites' => 'recipes#favorites'
   get '/recipes/muted' => 'recipes#muted'
   get '/recipes/:id' => 'recipes#show'
+
   get '/mypantry' => 'pantry_items#index'
   post '/pantry_items' => 'pantry_items#create'
+  post '/pantry_items_temp' => 'pantry_items#create_temp'
+  delete '/pantry_items/:id' => 'pantry_items#destroy'
+
   get '/mealplanner' => 'recipes#mealplanner'
+  get '/mealplanner/splash' => 'pantry_items#temporary'
+
   get '/ingredients' => 'ingredients#label'
   patch '/ingredients' => 'ingredients#update'
-  get 'login' => 'users#login'
+
+  get '/login' => 'users#login'
+
   patch 'favorite/:id' => 'favorites#update'
   delete 'favorite/:id' => 'favorites#destroy'
   patch 'mute/:id' => 'mutes#update'
   delete 'mute/:id' => 'mute#destroy'
+
 
   namespace :api do
     namespace :v1 do

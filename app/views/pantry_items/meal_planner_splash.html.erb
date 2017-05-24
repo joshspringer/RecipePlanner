@@ -1,0 +1,67 @@
+<div id="pantry">
+  <datalist id="ingredients">
+  <% @not_in_pantry.each do |ingredient| %>
+    <option><%= ingredient.name %></option>
+  <% end %>
+  </datalist>
+
+  <div class="advanced-search-container">
+    <div class="container">
+      <div class="sixteen columns">
+        <% if PantryItem.where(user_id: current_user.id).where(pantry_type: 1).length < 1 %>
+          <div class="twelve columns"><br><h3>Hi! It looks like you haven't added any ingredients to your <a href="/mypantry">Pantry</a> yet.  We recommend adding to your pantry any ingredients that you regularly keep on hand.  If you'd like to continue anyway, you may add temporary ingredients below (these will expire in 1 week):</h3></div>
+        <% else %>
+          <div class="twelve columns"><br><h2>Other than the ingredients in your <a href="/mypantry">Pantry</a>, are there any other ingredients that you have on hand right now? <br> These ingredients will expire after 1 week.</h2></div>
+        <% end %>
+        <div id="advanced-search">
+          <div class="select included-ingredients">
+            <nav class="search-by-keyword">
+
+              <form action="/pantry_items_temp" method="post">
+              <label>Add Ingredient:</label>
+              <select data-placeholder="Search for Ingredients" class="chosen-select" name="ingredient[]" multiple>
+              <% @not_in_pantry.each do |ingredient| %>
+                <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
+              <% end %>
+              </select>
+              <button type="submit">Add</button>
+              <!-- <button v-on:click="addPantryItem()"><span>Add</span><i class="fa fa-search"></i></button> -->
+              </form>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container example-grid">
+    <div id="uncat" class="sixteen columns">
+    <h3>Additional Ingredients:</h3>
+      <ul>
+        <% @added_ing.each do |pantry_item| %>
+        <li><%= Ingredient.find_by(id: pantry_item.ingredient_id).name %> <a href="/pantry_items/<%= pantry_item.id %>" data-method="delete" rel="nofollow"><i class="fa fa-close"></i></a></li>   
+        <% end %> 
+      </ul>
+    </div>
+
+  </div>
+
+      <!-- Pagination -->
+  <div class="pagination-container masonry">
+    <nav class="pagination">
+      <ul>
+        <li><a href="/mealplanner?page=1">Show my recipes <i class="fa fa-arrow-right"></i></a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <div>
+  <br>
+  <br>
+  <br>
+  </div>
+</div>
+
+
+

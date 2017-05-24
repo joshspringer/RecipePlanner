@@ -2,91 +2,15 @@
 <div id="wrapper">
 
 
-
-  <!-- Titlebar
-  ================================================== -->
-  <section id="titlebar" class="browse-all">
-    <!-- Container -->
-    <div class="container">
-
-      <div class="eight columns">
-        <h2>Browse Recipes</h2>
-      </div>
-
-    </div>
-    <!-- Container / End -->
-  </section>
-
-
-  <!-- Container -->
-  <div class="advanced-search-container">
-    <div class="container">
-      <div class="sixteen columns">
-        <div id="advanced-search">
-
-          <!-- Search Input -->
-          <nav class="search-by-keyword">
-            <form action="/recipes?page=1&images=<%= params[:images] %>&main=<%= params[:main] %>" method="get">
-              <button><span>Search for Recipes</span><i class="fa fa-search"></i></button>
-              <input class="search-field" type="text" placeholder="Search by keyword" value=""/>
-            </form>
-          </nav>
-          <div class="clearfix"></div>
-
-          <!-- Choose Category -->
-          <div class="select">
-            <label>Choose category</label>
-            <select data-placeholder="Choose Category" class="chosen-select-no-single">
-              <option value="1">All</option>
-              <option value="2">Poultry</option>
-              <option value="3">Beef</option>
-              <option value="4">Pork</option>
-              <option value="5">Fish</option>
-              <option value="6">Lamb</option>
-              <option value="7">Vegetarian</option>
-            </select>
-          </div>
-
-          <!-- Choose -->
-          <div class="select">
-            <label>Images</label>
-            <select data-placeholder="Choose Category" class="chosen-select">
-              <option value="1">Show All Recipes</option>
-              <option value="2">Show Only Recipes With Images</option>
-            </select>
-          </div>
-          
-          <div class="clearfix"></div>
-
-          <div class="clearfix"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
   <div class="margin-top-35"></div>
 
 
   <!-- Container -->
   <div class="container">
-    <% if params[:images] == "true" %>
-      <a href="/recipes?page=1&main=<%= params[:main] %>">Show all recipes</a>
-    <% else %>
-      <a href="/recipes?page=1&images=true&main=<%= params[:main] %>">Show only recipes with Images</a>
-    <% end %>
-
-    <h3>Main Ingredient: </h3>
-    <a href='/recipes?images=<%= params[:images] %>&main=poultry&page=<%= params[:page] %>'>Poultry</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=beef&page=<%= params[:page] %>'>Beef</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=pork&page=<%= params[:page] %>'>Pork</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=fish&page=<%= params[:page] %>'>Fish</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=lamb&page=<%= params[:page] %>'>Lamb</a>
-    <a href='/recipes?images=<%= params[:images] %>&main=vegetarian&page=<%= params[:page] %>'>Vegetarian</a>
 
     <!-- Headline -->
     <div class="sixteen columns">
-      <h3 class="headline">All Recipes</h3>
+      <h3 class="headline">Favorite Recipes</h3>
       <span class="line margin-bottom-35"></span>
       <div class="clearfix"></div>
     </div>

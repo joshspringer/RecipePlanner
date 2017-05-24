@@ -1,7 +1,7 @@
 class Api::V1::PantryItemsController < ApplicationController
   def index
     # @ingredients = Ingredient.all
-    @pantry = PantryItem.where(user_id: params[:id])
+    @pantry = PantryItem.where(user_id: params[:id]).where(pantry_type: 1)
     @categories = IngredientCategory.all
     render 'index.json.jbuilder'
   end
@@ -23,10 +23,6 @@ class Api::V1::PantryItemsController < ApplicationController
   end
 
   def destroy
-    p 'delete a pantry item'
-    p "ingredient_id: #{params[:ingredient_id]}"
-    p current_user
-
     array = PantryItem.where(ingredient_id: params[:ingredient_id]).where(user_id: current_user)
     array.each do |item|
       item.destroy

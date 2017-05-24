@@ -1,4 +1,8 @@
 <style>
+#suggestions {
+  margin-bottom: 12px;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -25,29 +29,34 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+div .four.columns {
+  height: 300px;
+  overflow: scroll;
+}
+
+i .fa.fa-close {
+  color: black;
+}
+
 </style>
 
-<h1>MyPantry</h1>
 
 <div id="pantry">
   <datalist id="ingredients">
   <% @not_in_pantry.each do |ingredient| %>
     <option><%= ingredient.name %></option>
   <% end %>
-
-<!--   <option v-for="ingredient in ingredients">{{ ingredient.name }}</option> -->
-
   </datalist>
+
   <p id="current_user" class="<%= current_user.id %>" hidden ></p>
   <div class="advanced-search-container">
     <div class="container">
       <div class="sixteen columns">
+        <div class="twelve columns"><br><h2>Welcome to MyPantry!  Here you can add any ingredients that you regularly keep on hand.  They will remain in your pantry until you remove them.</h2></div>
         <div id="advanced-search">
           <div class="select included-ingredients">
             <nav class="search-by-keyword">
-
-
-<!-- <v-select multiple v-model="selected" :options="['flour','chicken', 'rice']"></v-select> -->
 
               <form action="/pantry_items" method="post">
               <label>Add Ingredient:</label>
@@ -73,7 +82,7 @@
 
     
     <div id="suggestions" class="sixteen columns">
-      <h2><div class="tooltip"><i class="fa fa-info-circle"></i><span class="tooltiptext">Suggestions are based on frequency of ingredients in your favorite recipes and in other users' pantries</span> </div> Suggestions: </h2>
+      <h2><div class="tooltip"><i class="fa fa-info-circle"></i><span class="tooltiptext">Suggestions are based on the most common ingredients in other peoples' pantries and in your favorite recipes</span> </div> Suggestions: </h2>
       <form action="/pantry_items" method="post" name="ingredient[]">
         <% @suggestions.each do |ingredient| %>
           <input type="checkbox" name="ingredient[]" value="<%= ingredient['id'] %>"><%= ingredient['name'] %>

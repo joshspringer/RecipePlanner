@@ -55,18 +55,27 @@
 
 
     <!-- Text -->
-    <p itemprop="description">Recipe Description</p>
+    <p itemprop="description"></p>
 
     <!-- Ingredients -->
     <h3>Ingredients</h3>
     <ul class="ingredients">
-      <% counter=1 %>
-      <% @recipe.recipe_ingredients.each do |ingredient| %>
-      <li>
-        <input id="check-<%= counter %>" type="checkbox" name="check" value="check-<%= counter %>" <% if PantryItem.where(user_id: 1).where(ingredient_id: ingredient.ingredient_id).length > 0 %>checked<% end %>>
-        <label itemprop="ingredients" for="check-<%= counter %>"><%= ingredient.ingredient_text %></label>
-      </li>
-      <% counter += 1 %>
+      <% if !current_user %>
+        <% counter = 1 %>
+        <% @recipe.recipe_ingredients.each do |ingredient| %>
+        <li><input id="check-<%= counter %>" type="checkbox" name="check" value="check-<%= counter %>"><label itemprop="ingredients" for="check-<%= counter %>"><%= ingredient.ingredient_text %></label>
+        </li>
+        <% counter += 1 %>
+        <% end %>
+      <% else %>    
+        <% counter = 1 %>
+        <% @recipe.recipe_ingredients.each do |ingredient| %>
+        <li>
+          <input id="check-<%= counter %>" type="checkbox" name="check" value="check-<%= counter %>" <% if PantryItem.where(user_id: current_user.id).where(ingredient_id: ingredient.ingredient_id).length > 0 %>checked<% end %>>
+          <label itemprop="ingredients" for="check-<%= counter %>"><%= ingredient.ingredient_text %></label>
+        </li>
+        <% counter += 1 %>
+        <% end %>
       <% end %>                 
     </ul>
 
@@ -74,7 +83,7 @@
     <!-- Directions -->
     <h3>Directions</h3>
     <ol class="directions" itemprop="recipeInstructions">
-      <% @directions.each do |step| %>
+      <% @recipe.directions.each do |step| %>
         <li ><%= step %></li>
       <% end %>
     </ol>
@@ -311,24 +320,12 @@
   <!-- Search Form -->
   <div class="widget search-form">
     <nav class="search">
-      <form action="#" method="get">
+      <form action="/recipes" method="get">
         <button><i class="fa fa-search"></i></button>
-        <input class="search-field" type="text" placeholder="Search for recipes" value=""/>
+        <input class="search-field" type="text" name = "q" placeholder="Search for recipes" value=""/>
       </form>
     </nav>
     <div class="clearfix"></div>
-  </div>
-
-
-  <!-- Author Box -->
-  <div class="widget">
-    <div class="author-box">
-      <span class="title">Author</span>
-      <span class="name">Sandra <br> Fortin</span>
-      <span class="contact"><a href="mailto:sandra@chow.com">sandra@chow.com</a></span>
-      <img src="#" alt="">
-      <p>I'm Sandra and this is where I share my stuff. I am madly in love with food. You will find a balance of healthy recipes, comfort food and indulgent desserts.</p>
-    </div>
   </div>
 
 
@@ -338,12 +335,13 @@
     <span class="line margin-bottom-30"></span>
     <div class="clearfix"></div>
     
+    <% @popular.each do |recipe| %>
     <!-- Recipe #1 -->
-    <a href="#" class="featured-recipe">
-      <img src="#" alt="">
+    <a href="/recipes/<%= recipe.id %>" class="featured-recipe">
+      <img src="<%= recipe.image %>" alt="">
 
       <div class="featured-recipe-content">
-        <h4>Choclate Cake With Green Tea Cream</h4>
+        <h4><%= recipe.name %></h4>
       
         <div class="rating five-stars">
           <div class="star-rating"></div>
@@ -352,36 +350,7 @@
       </div>
       <div class="post-icon"></div>
     </a>
-
-    <!-- Recipe #2 -->
-    <a href="#" class="featured-recipe">
-      <img src="#" alt="">
-
-      <div class="featured-recipe-content">
-        <h4>Mexican Grilled Corn Recipe</h4>
-      
-        <div class="rating five-stars">
-          <div class="star-rating"></div>
-          <div class="star-bg"></div>
-        </div>
-      </div>
-      <div class="post-icon"></div>
-    </a>
-
-    <!-- Recipe #3 -->
-    <a href="#" class="featured-recipe">
-      <img src="#" alt="">
-
-      <div class="featured-recipe-content">
-        <h4>Pollo Borracho With Homemade Tortillas</h4>
-      
-        <div class="rating five-stars">
-          <div class="star-rating"></div>
-          <div class="star-bg"></div>
-        </div>
-      </div>
-      <div class="post-icon"></div>
-    </a>
+    <% end %>
 
     <div class="clearfix"></div>
   </div>

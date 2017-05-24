@@ -36,7 +36,35 @@ class PantryItemsController < ApplicationController
       )
       newitem.save
       p newitem.errors.full_messages
-  end
+    end
     redirect_to '/mypantry'
+  end
+
+  def create_temp
+    params[:ingredient].each do |ingredient|
+      newitem = PantryItem.new(
+        ingredient_id: ingredient,
+        user_id: current_user.id,
+        pantry_type: 2
+      )
+      newitem.save
+      p newitem.errors.full_messages
+    end
+    redirect_to '/mealplanner/splash'
+  end
+
+  def temporary
+    if !current_user
+      render '/not_signed_in.html.erb'
+    else
+    @not_in_pantry = Ingredient.where("id NOT IN (?)", PantryItem.where(user_id: current_user.id).pluck(:ingredient_id))
+    @added_ing = PantryItem.where(pantry_type: 2).where(user_id: current_user.id)
+    render 'meal_planner_splash.html.erb'
+    end
+  end
+
+  def destroy
+    PantryItem.find_by(id: params[:id]).destroy
+    redirect_to '/mealplanner/splash'
   end
 end

@@ -1,6 +1,22 @@
 class RecipesController < ApplicationController
 
   def home
+    @featured = [
+      Recipe.find_by(id: 9384),
+      Recipe.find_by(id: 7947),
+      Recipe.find_by(id: 149),
+      Recipe.find_by(id: 6148),
+      Recipe.find_by(id: 10526),
+      Recipe.find_by(id: 7067),
+      Recipe.find_by(id: 10493),
+      Recipe.find_by(id: 7252),
+      Recipe.find_by(id: 315),
+    ]
+    @popular = [
+      Recipe.find_by(id: 5370),
+      Recipe.find_by(id: 5838),
+      Recipe.find_by(id: 6893)
+    ]
     render '/index.html.erb'
   end
 
@@ -33,9 +49,6 @@ class RecipesController < ApplicationController
       recipes = recipes.select {|a| a.name.include? params[:q]}
     end
 
-    p recipes
-    p '*' * 10
-    p recipes.length
     if (recipes.length / 12.to_f).ceil > 10
       @num_of_pages = 10
     else
@@ -59,6 +72,7 @@ class RecipesController < ApplicationController
       render '/not_signed_in.html.erb'
     else
       @page = params[:page]
+
       @recipes = Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id))
 
       if (@recipes.length / 12.to_f).ceil > 10
@@ -77,22 +91,25 @@ class RecipesController < ApplicationController
     end
   end
 
-  def muted
-    @recipes = Recipe.where(id: Mute.where(user_id: current_user).pluck(:recipe_id))
+  # def muted
+  #   @recipes = Recipe.where(id: Mute.where(user_id: current_user).pluck(:recipe_id))
 
-    if (@recipes.length / 12.to_f).ceil > 10
-      @num_of_pages = 10
-    else
-      @num_of_pages = (@recipes.length / 12.to_f).ceil
-    end
+  #   if (@recipes.length / 12.to_f).ceil > 10
+  #     @num_of_pages = 10
+  #   else
+  #     @num_of_pages = (@recipes.length / 12.to_f).ceil
+  #   end
 
-    render 'index.html.erb'
-  end
+  #   render 'index.html.erb'
+  # end
 
   def show
     @recipe = Recipe.find_by(id: params[:id])
-    # @directions = Nokogiri::HTML(open(@recipe.filepath)).css('div.recipe-method-wrapper ol.recipe-method__list')
-    @directions = @recipe.directions
+    @popular = [
+      Recipe.find_by(id: 5370),
+      Recipe.find_by(id: 5838),
+      Recipe.find_by(id: 6893)
+    ]
   end
 
   def mealplanner
