@@ -19,7 +19,7 @@
 </div>
 
 <div class="container">
-
+<!-- <p>Show: <a href="/mealplanner?page=1&images=true&favorites=<%= params[:favorites] %>">Recipes with Images Only</a> | <a href="/mealplanner?page=1&images=<%= params[:images] %>&favorites=true">Favorite Recipes Only</a></p> -->
   <!-- Masonry -->
   <div class="twelve columns ">
 
@@ -46,9 +46,12 @@
 
         <!-- Content -->
         <div class="recipe-box-content">
-          <h3><a href="/recipes/<%=recipe['id']%>"><%= Recipe.find_by(id: recipe['id']).name %></a></h3>
+          <h3><a href="/recipes/<%=recipe['id']%>"><%= Recipe.find_by(id: recipe['id']).name %></a>
+          <% if Recipe.where(id: Favorite.where(user_id: current_user).pluck(:recipe_id)).ids.include?(recipe['id']) %>
+            <i id="fav_button" class="fa fa-heart"></i> <% end %>
+          </h3>
           <p>You have <%= recipe['pantry_ingredients'] %> of <%= recipe['recipe_ingredients'] %> ingredients </p>
-          <p>Missing ingredients: </p>
+    <!--  <p>Missing ingredients: <%= Recipe.find_by(id: recipe['id']).ingredients %></p> -->
 
           <div class="rating five-stars">
             <div class="star-rating"></div>

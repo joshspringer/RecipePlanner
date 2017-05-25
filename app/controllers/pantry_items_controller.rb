@@ -5,7 +5,11 @@ class PantryItemsController < ApplicationController
         render '/not_signed_in.html.erb'
     else
     # @ ingredients where not already in user's pantry
-    @not_in_pantry = Ingredient.where("id NOT IN (?)", PantryItem.where(user_id: current_user.id).pluck(:ingredient_id))
+    if PantryItem.where(user_id: current_user.id).length > 0
+      @not_in_pantry = Ingredient.where("id NOT IN (?)", PantryItem.where(user_id: current_user.id).pluck(:ingredient_id))
+    else 
+      @not_in_pantry = Ingredient.all
+    end
 
     sql = "SELECT 
 

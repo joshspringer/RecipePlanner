@@ -119,23 +119,36 @@ class RecipesController < ApplicationController
       ingredient_filter = "WHERE _ri.ingredient_id IN (#{params[:ingredient_id]})" if params[:ingredient_id]
       sql = "SELECT
 
-            r.id,
-            count(p.ingredient_id) as pantry_ingredients,
-            count(ri.id) as recipe_ingredients,
-            (count(p.ingredient_id)+0.0)/(count(ri.id)+0.0) as percentage
+        pantry_recipes.id,
+        pantry_ingredients,
+        recipe_ingredients,
+        percentage,
+        COUNT(f.user_id) AS total_favorites,
+        SUM(CASE f.user_id WHEN #{current_user.id} THEN 1 ELSE 0 END) AS user_favorites
 
-            FROM
-              (SELECT _r.id
-              FROM recipes _r JOIN recipe_ingredients _ri ON _r.id = _ri.recipe_id
-              #{ingredient_filter}
-              GROUP BY 1
-              ) r
-            JOIN recipe_ingredients ri ON r.id = ri.recipe_id
-            JOIN ingredients i ON ri.ingredient_id = i.id
-            LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = #{current_user.id}) p ON i.id = p.ingredient_id
+        FROM
+        (SELECT
 
-            GROUP BY 1
-            ORDER BY 4 DESC"
+        r.id,
+        COUNT(p.ingredient_id) AS pantry_ingredients,
+        COUNT(ri.id) AS recipe_ingredients,
+        (COUNT(p.ingredient_id)+0.0)/(COUNT(ri.id)+0.0) AS percentage
+
+        FROM
+          (SELECT _r.id
+          FROM recipes _r JOIN recipe_ingredients _ri ON _r.id = _ri.recipe_id
+          #{ingredient_filter}
+          GROUP BY 1
+          ) r
+        JOIN recipe_ingredients ri ON r.id = ri.recipe_id
+        JOIN ingredients i ON ri.ingredient_id = i.id
+        LEFT JOIN (SELECT * FROM pantry_items WHERE user_id = #{current_user.id}) p ON i.id = p.ingredient_id
+
+        GROUP BY 1) pantry_recipes
+        LEFT JOIN favorites f ON pantry_recipes.id = f.recipe_id
+        GROUP BY 1,2,3,4
+
+        ORDER BY 4 DESC, 6 DESC, 5 DESC, 3 DESC"
 
       range = ActiveRecord::Base.connection.execute(sql)
       recipes = range.to_a
